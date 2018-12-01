@@ -1,30 +1,33 @@
-import React, { Component } from 'react';
-import logo from './img/document-icon.png';
-import './App.css';
+import React from "react";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import home from "./views/home/home.jsx"
 
-class App extends Component {
-	render() {
-		return (
-			<div className="App">
-				<header className="App-header">
-					<h1> ONE DOC </h1>
-					<img src={logo} className="App-logo" alt="logo" />
-					<p>
-						Welcome to the starting repo for 322. Edit <code>src/App.js</code>{' '}
-						and save to reload.
-					</p>
-					<a
-						className="App-link"
-						href="https://reactjs.org"
-						target="_blank"
-						rel="noopener noreferrer"
-					>
-						Click Here to Learn More React!
-					</a>
-				</header>
-			</div>
-		);
-	}
-}
+const Index = () => <h2>Home</h2>;
+const About = () => <h2>About</h2>;
+const Users = () => <h2>Users</h2>;
 
-export default App;
+const AppRouter = () => (
+  <Router>
+    <div>
+      <nav>
+        <ul>
+          <li>
+            <Link to="/">Home</Link>
+          </li>
+          <li>
+            <Link to="/about/">About</Link>
+          </li>
+          <li>
+            <Link to="/users/">Users</Link>
+          </li>
+        </ul>
+      </nav>
+
+      <Route path="/" exact component={home} />
+      <Route path="/about/" component={About} />
+      <Route path="/users/" component={Users} />
+    </div>
+  </Router>
+);
+
+export default AppRouter;
