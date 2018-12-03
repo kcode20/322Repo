@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import Home from './views/home/home.jsx';
 import Users from './views/users/users';
 
-const Index = () => <h2>Home</h2>;
 const About = () => <h2>About</h2>;
 // const Users = () => <h2>Users</h2>; // Added users page
 
