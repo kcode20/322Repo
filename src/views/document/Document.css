@@ -1,0 +1,15 @@
+.document {
+	background-color: #282c34;
+	min-height: 100vh;
+}
+
+.editor {
+	margin: 25px;
+	padding: 15px;
+	background-color: white;
+	min-height: 100vh;
+}
+
+.tools {
+	margin: 10px auto;
+}
