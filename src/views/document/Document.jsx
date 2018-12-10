@@ -32,18 +32,18 @@ class Document extends React.Component {
 				<Container>
 					<Row>
 						<Col sm="12">
+							<ButtonGroup className="tools" size="sm">
+								<Button color="primary" onClick={this._onBoldClick}>
+									Bold
+								</Button>
+								<Button color="primary" onClick={this._onItalicsClick}>
+									Italics
+								</Button>
+								<Button color="primary" onClick={this._onUnderlineClick}>
+									Underline
+								</Button>
+							</ButtonGroup>
 							<div className="editor">
-								<ButtonGroup className="tools center-block" size="sm">
-									<Button outline color="info" onClick={this._onBoldClick}>
-										Bold
-									</Button>
-									<Button outline color="info" onClick={this._onItalicsClick}>
-										Italics
-									</Button>
-									<Button outline color="info" onClick={this._onUnderlineClick}>
-										Underline
-									</Button>
-								</ButtonGroup>
 								<Editor
 									editorState={this.state.editorState}
 									onChange={this.onChange}
