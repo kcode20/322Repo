@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, withRouter } from 'react-router-dom';
 import '../login.css';
 
 class SignUpForm extends Component {
@@ -29,6 +29,7 @@ class SignUpForm extends Component {
 	}
 
 	handleSubmit(e) {
+		const { history } = this.props;
 		e.preventDefault();
 		var data = {
 			username: this.state.username,
@@ -50,13 +51,10 @@ class SignUpForm extends Component {
 				if (response.status >= 400) {
 					throw new Error('Bad response from server');
 				}
-				return response.json();
-			})
-			.then(function(data) {
-				console.log(data);
-				if (data === 'success') {
-					this.setState({ msg: 'Thanks for registering' });
+				if (response.status === 200) {
+					history.push('/document');
 				}
+				return response.json();
 			})
 			.catch(function(err) {
 				console.log(err);
@@ -180,4 +178,4 @@ class SignUpForm extends Component {
 		);
 	}
 }
-export default SignUpForm;
+export default withRouter(SignUpForm);

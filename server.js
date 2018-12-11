@@ -13,23 +13,19 @@ var connection = mysql.createConnection({
 	host: 'localhost',
 	user: 'root',
 	// password: 'yourDataBasePassword',
-	password: 'Noosa11',
+	password: 'SJm4!5nt',
 	database: 'onedoc',
 });
 
 app.post('/signup', function(req, res) {
-	res.header('Access-Control-Allow-Origin', '*');
-
-	console.log(req.body, req.headers);
 	let userName = req.body.username;
 	let email = req.body.email;
 	let password = req.body.password;
 	let q = `INSERT INTO users(username, email, password) VALUES ('${userName}', '${email}', '${password}')`;
-	console.log(q);
 	connection.query(q, function(err, results) {
 		if (err) throw err;
 	});
-	res.redirect('/document');
+	res.sendStatus(200);
 });
 
 app.listen(8080, function() {
