@@ -12,8 +12,8 @@ app.use(cors());
 var connection = mysql.createConnection({
 	host: 'localhost',
 	user: 'root',
-	// password: 'yourDataBasePassword',
-	password: 'SJm4!5nt',
+	password: 'yourDataBasePassword',
+
 	database: 'onedoc',
 });
 

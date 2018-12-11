@@ -54,7 +54,7 @@ class SignUpForm extends Component {
 				if (response.status === 200) {
 					history.push('/document');
 				}
-				return response.json();
+				// return response.json();
 			})
 			.catch(function(err) {
 				console.log(err);
