@@ -23,7 +23,7 @@ CREATE TABLE documents (
   owner int(11) NOT NULL,
   title varchar(45) NOT NULL,
   content text,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
   modified_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   locked bit(1) NOT NULL,
   PRIMARY KEY (docID),
