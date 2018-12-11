@@ -5,6 +5,7 @@ import Navbar from './components/Navbar';
 import SignInForm from './views/signupin/pages/SignInForm'
 import SignUpForm from './views/signupin/pages/SignUpForm';
 import Document from './views/document/Document';
+import Complain from './views/complaints/complain'
 
 const About = () => <h2>About</h2>;
 // const Users = () => <h2>Users</h2>; // Added users page
@@ -17,6 +18,7 @@ const AppRouter = () => (
 			<Route path="/about/" component={About} />
 			<Route path="/signup" component={SignUpForm}/>
             <Route path="/signin" component={SignInForm}/>
+			<Route path="/complain" component={Complain}/>
 			<Route path="/document/" component={Document} />
 		</div>
 	</Router>
