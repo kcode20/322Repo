@@ -5,12 +5,11 @@ USE onedoc; -- use onedoc database
 
 DROP TABLE IF EXISTS users;
 
-CREATE TABLE `Users` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `Username` varchar(15) NOT NULL,
-  `Email` varchar(50) NOT NULL,
-  `Password` char(60) NOT NULL,
-  PRIMARY KEY (`id`)
+CREATE TABLE users (
+  id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  username varchar(15) NOT NULL,
+  email varchar(50) NOT NULL,
+  password char(60) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 LOCK TABLES users WRITE;
