@@ -1,5 +1,5 @@
 import React from 'react';
-import { Editor, EditorState, RichUtils } from 'draft-js';
+import { Editor, EditorState, RichUtils, ContentState } from 'draft-js';
 import { Button, ButtonGroup, Container, Row, Col } from 'reactstrap';
 import './Document.css';
 
@@ -12,6 +12,29 @@ class Document extends React.Component {
 		};
 		this.onChange = editorState => this.setState({ editorState });
 	}
+
+	componentDidMount = () => {
+		const { id } = this.props.match.params;
+		fetch(`http://localhost:8080/document/${id}`)
+			.then(response => {
+				if (response.status >= 400) {
+					throw new Error('Bad response from server');
+				}
+				return response.json();
+			})
+			.then(data => {
+				const draft = data[0];
+				this.setState({
+					editorState: EditorState.createWithContent(
+						ContentState.createFromText(draft.content)
+					),
+					title: draft.title,
+				});
+			})
+			.catch(function(err) {
+				console.log(err);
+			});
+	};
 
 	_onBoldClick = () => {
 		this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, 'BOLD'));

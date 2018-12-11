@@ -20,7 +20,7 @@ const AppRouter = () => (
 			<Route path="/signup" component={SignUpForm} />
 			<Route path="/signin" component={SignInForm} />
 			<Route path="/complain" component={Complain} />
-			<Route path="/document/" component={Document} />
+			<Route path="/document/:id" component={Document} />
 			<Route path="/documents" component={DocumentCollection} />
 		</div>
 	</Router>

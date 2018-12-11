@@ -96,3 +96,14 @@ app.get('/documents', function(req, res) {
 		}
 	});
 });
+
+app.get('/document/:id', function(req, res) {
+	const { id } = req.params;
+	const q = `SELECT * FROM documents WHERE docId='${id}'`;
+	connection.query(q, function(err, results) {
+		if (err) throw err;
+		if (results) {
+			res.send(results);
+		}
+	});
+});

@@ -8,6 +8,7 @@ import {
 	CardTitle,
 	Button,
 } from 'reactstrap';
+import { Link } from 'react-router-dom';
 import './Documents.css';
 
 class Documents extends React.Component {
@@ -53,12 +54,15 @@ class Documents extends React.Component {
 					</Row>
 					<Row>
 						{this.state.documents.map((doc, key) => {
+							const link = `/document/${doc.docID}`;
 							return (
 								<Col key={key} sm={{ size: 'auto', offset: 1 }}>
 									<Card className="document-cards">
 										<CardBody>
 											<CardTitle>{doc.title}</CardTitle>
-											<Button>View</Button>
+											<Link to={link}>
+												<Button onClick={this.onClick}>View</Button>
+											</Link>
 										</CardBody>
 									</Card>
 								</Col>

@@ -22,8 +22,8 @@ CREATE TABLE documents (
   docID int(11) NOT NULL AUTO_INCREMENT,
   owner int(11) NOT NULL,
   title varchar(45) NOT NULL,
-  content blob,
-  created_at datetime NOT NULL,
+  content text,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
   modified_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   locked bit(1) NOT NULL,
   PRIMARY KEY (docID),
@@ -117,3 +117,7 @@ UNLOCK TABLES;
 INSERT INTO users(username, email, password)
 VALUES ("Connie", "connie@gmail.com", "people123"),
   ("Friend", "friend@gmail.com", "people123");
+
+INSERT INTO documents(owner, title, content, locked) VALUES('1', 'My First Document', 'This is my first document. I love to write!', 0);
+INSERT INTO documents(owner, title, content, locked) VALUES('1', 'My Second Document', 'This is my second document. I like to write!', 0);
+INSERT INTO documents(owner, title, content, locked) VALUES('1', 'My Third Document', 'This is my third document. I hate to write!', 0);
