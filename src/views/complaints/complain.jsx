@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-//import './complain.css';
+import './complain.css';
 
 class Complain extends Component{
     constructor(){
@@ -39,33 +39,20 @@ class Complain extends Component{
     }
 
     render(){
-        // let Toggle;
-        // if(this.state.toggleComplainTo === 1){
-        //     Toggle = (
-        //         <div>
-        //             <p>Complain to Admin</p>
-        //         </div>
-        //     );
-        // }else{
-        //     Toggle = (
-        //         <div>
-        //             <p>Complain to Owner of the Document</p>
-        //         </div>
-        //     );
-        // }
-
         return(
             <div>
-                <button onClick = {this.toggleHandler}>Toggle Complain User</button>
-                {(this.state.toggleComplainTo === 1) ?
-                    <div>
-                        <p>Complain to Admin</p>
-                    </div> 
-                    :
-                    <div>
-                        <p>Complain to Owner of the Document</p>
-                    </div>
-                }
+                <div className = "User_Interaction">
+                    <button onClick = {this.toggleHandler}>Toggle Complain User</button>
+                    {(this.state.toggleComplainTo === 1) ?
+                        <div>
+                            <p>Complain to Admin</p>
+                        </div> 
+                        :
+                        <div>
+                            <p>Complain to Owner of the Document</p>
+                        </div>
+                    }
+                </div>
                 <form className="FormCenter">
                     <input type="text" name="firstName" className="FormField_Input" placeholder="First Name"
                            value = {this.state.firstName} onChange = {e => this.handleChange(e)}/>
@@ -73,12 +60,15 @@ class Complain extends Component{
                            value = {this.state.lastName} onChange = {e => this.handleChange(e)}/>
                     <input type="text" name="email" className="FormField_Input" placeholder="Email"
                            value = {this.state.email} onChange = {e => this.handleChange(e)}/>
-                    <input type="text" name="note" className="FormField_Input" placeholder="Complain"
+                    <textarea name="note" className="FormField_Input_Complain" placeholder="Complain" rows="4" cols="50"
                            value = {this.state.note} onChange = {e => this.handleChange(e)}/>
-                    <input type="text" name="DocID" className="FormField_Input" placeholder="Document ID"
-                           value = {this.state.DocID} onChange = {e => this.handleChange(e)}/>
-                    <button onClick={e => this.handleSubmit(e)}>Submit</button>
+                    {/* <input type="text" name="DocID" className="FormField_Input" placeholder="Document ID"
+                           value = {this.state.DocID} onChange = {e => this.handleChange(e)}/> */}
                 </form>
+                <div className = "User_Submit">
+                    <button onClick={e => this.handleSubmit(e)}>Submit</button>
+                </div>
+                
             </div>
         );
     }
