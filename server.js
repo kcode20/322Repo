@@ -86,3 +86,13 @@ app.post('/document', function(req, res) {
 	});
 	res.sendStatus(200);
 });
+
+app.get('/documents', function(req, res) {
+	const q = `SELECT * FROM documents`;
+	connection.query(q, function(err, results) {
+		if (err) throw err;
+		if (results) {
+			res.send(results);
+		}
+	});
+});
