@@ -6,7 +6,10 @@ import './Document.css';
 class Document extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = { editorState: EditorState.createEmpty() };
+		this.state = {
+			editorState: EditorState.createEmpty(),
+			title: 'Untitled',
+		};
 		this.onChange = editorState => this.setState({ editorState });
 	}
 
@@ -26,6 +29,37 @@ class Document extends React.Component {
 		);
 	};
 
+	onSubmit = () => {
+		const content = this.state.editorState.getCurrentContent();
+		const data = {
+			title: this.state.title,
+			content: content.getPlainText(),
+			owner: 1,
+			locked: 0,
+		};
+		fetch('http://localhost:8080/document', {
+			method: 'POST',
+			mode: 'cors',
+			headers: {
+				'Content-Type': 'application/json',
+				Accept: 'application/json',
+				'Access-Control-Allow-Origin': '*',
+			},
+			body: JSON.stringify(data),
+		})
+			.then(function(response) {
+				if (response.status >= 400) {
+					throw new Error('Bad response from server');
+				}
+				if (response.status === 200) {
+					alert('Your document has been saved!');
+				}
+			})
+			.catch(function(err) {
+				console.log(err);
+			});
+	};
+
 	render() {
 		return (
 			<div className="document">
@@ -43,6 +77,9 @@ class Document extends React.Component {
 									Underline
 								</Button>
 							</ButtonGroup>
+							<Button color="primary" size="sm" onClick={this.onSubmit}>
+								Save
+							</Button>
 							<div className="editor">
 								<Editor
 									editorState={this.state.editorState}
