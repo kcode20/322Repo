@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink  } from 'react-router-dom';
+import '../login.css';
 
 class SignUpForm extends Component {
     constructor() {
         super();
 
         this.state = {
+            username: "",
             email: '',
             password: '',
             name: '',
@@ -35,8 +37,25 @@ class SignUpForm extends Component {
 
     render() {
         return (
-        <div className="FormCenter">
+            <div className="App">
+          <div className="App__Aside"></div>
+          <div className="App__Form">
+            <div className="PageSwitcher">
+                <NavLink to="/signin" activeClassName="PageSwitcher__Item--Active" className="PageSwitcher__Item">Sign In</NavLink>
+                <NavLink exact to="/signup" activeClassName="PageSwitcher__Item--Active" className="PageSwitcher__Item">Sign Up</NavLink>
+            </div>
+
+            <div className="FormTitle">
+                <NavLink to="/signin" activeClassName="FormTitle__Link--Active" className="FormTitle__Link">Sign In</NavLink> 
+                or 
+                <NavLink exact to="/signup" activeClassName="FormTitle__Link--Active" className="FormTitle__Link">Sign Up</NavLink>
+            </div>
+            <div className="FormCenter">
             <form onSubmit={this.handleSubmit} className="FormFields">
+            <div className="FormField">
+                <label className="FormField__Label" htmlFor="name">Full Name</label>
+                <input type="text" id="username" className="FormField__Input" placeholder="Enter your username" name="username" value={this.state.username} onChange={this.handleChange} />
+              </div>
               <div className="FormField">
                 <label className="FormField__Label" htmlFor="name">Full Name</label>
                 <input type="text" id="name" className="FormField__Input" placeholder="Enter your full name" name="name" value={this.state.name} onChange={this.handleChange} />
@@ -57,10 +76,12 @@ class SignUpForm extends Component {
               </div>
 
               <div className="FormField">
-                  <button className="FormField__Button mr-20">Sign Up</button> <Link to="/sign-in" className="FormField__Link">I'm already member</Link>
+                  <button className="FormField__Button mr-20">Sign Up</button> <Link to="/signin" className="FormField__Link">I'm already member</Link>
               </div>
             </form>
           </div>
+          </div>
+        </div>
         );
     }
 }
