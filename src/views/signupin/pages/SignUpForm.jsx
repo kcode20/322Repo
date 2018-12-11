@@ -30,9 +30,37 @@ class SignUpForm extends Component {
 
     handleSubmit(e) {
         e.preventDefault();
-
+        var data = {
+          username: this.state.username,
+          email: this.state.email,
+          password: this.state.password,
+        }
+        console.log(data);
+        fetch('http://localhost:8080/signup',{
+          method: 'POST',
+          mode: 'no-cors',
+          headers: {
+            'Access-Control-Allow-Origin':'*',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        }).then(function(response) {
+            if (response.status >= 400) {
+              throw new Error("Bad response from server");
+            }
+            return response.json();
+        }).then(function(data) {
+            console.log(data)
+            if(data === "success"){
+               this.setState({msg: "Thanks for registering"});
+            }
+        }).catch(function(err) {
+            console.log(err)
+        });
         console.log('The form was submitted with the following data:');
         console.log(this.state);
+
+
     }
 
     render() {
@@ -46,19 +74,15 @@ class SignUpForm extends Component {
             </div>
 
             <div className="FormTitle">
-                <NavLink to="/signin" activeClassName="FormTitle__Link--Active" className="FormTitle__Link">Sign In</NavLink> 
-                or 
+                <NavLink to="/signin" activeClassName="FormTitle__Link--Active" className="FormTitle__Link">Sign In</NavLink>
+                or
                 <NavLink exact to="/signup" activeClassName="FormTitle__Link--Active" className="FormTitle__Link">Sign Up</NavLink>
             </div>
             <div className="FormCenter">
             <form onSubmit={this.handleSubmit} className="FormFields">
             <div className="FormField">
-                <label className="FormField__Label" htmlFor="name">Full Name</label>
+                <label className="FormField__Label" htmlFor="name">Username</label>
                 <input type="text" id="username" className="FormField__Input" placeholder="Enter your username" name="username" value={this.state.username} onChange={this.handleChange} />
-              </div>
-              <div className="FormField">
-                <label className="FormField__Label" htmlFor="name">Full Name</label>
-                <input type="text" id="name" className="FormField__Input" placeholder="Enter your full name" name="name" value={this.state.name} onChange={this.handleChange} />
               </div>
               <div className="FormField">
                 <label className="FormField__Label" htmlFor="password">Password</label>
