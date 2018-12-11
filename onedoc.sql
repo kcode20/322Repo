@@ -1,4 +1,4 @@
-DROP DATABASE onedoc;
+-- DROP DATABASE onedoc;
 CREATE DATABASE onedoc;
 
 USE onedoc; -- use onedoc database
