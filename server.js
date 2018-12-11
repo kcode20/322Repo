@@ -16,6 +16,17 @@ var connection = mysql.createConnection({
 	database: 'onedoc',
 });
 
+// Check if server is working properly
+connection.connect(function(error) {
+	if (!!error) {
+		console.log('Error connecting to database');
+	} else {
+		console.log('Connected');
+	}
+});
+
+let signedInUser = { userID: '0', userName: '', loggedIn: false };
+
 app.post('/signup', function(req, res) {
 	let userName = req.body.username;
 	let email = req.body.email;
@@ -25,6 +36,42 @@ app.post('/signup', function(req, res) {
 		if (err) throw err;
 	});
 	res.sendStatus(200);
+});
+
+app.get('/signin', function(req, res) {
+	if (signedInUser.loggedIn) {
+		// res.sendStatus(200);
+		console.log('Yes signed in!');
+		res.redirect('/document');
+	} else {
+		// console.log("Not signed in!");
+		res.render('SignInForm'); //the homepage of the ejs
+	}
+});
+
+app.post('/login', function(req, res) {
+	let username = req.body.username;
+	let password = req.body.password;
+	console.log(username, password);
+	let q =
+		"SELECT id, username, password FROM users WHERE username = '" +
+		username +
+		"' AND password = '" +
+		password +
+		"'";
+	connection.query(q, function(err, results) {
+		if (err) throw err;
+		if (results[0]) {
+			console.log('The username and password are correct!');
+			signedInUser.userID = results[0].id;
+			signedInUser.userName = results[0].username;
+			signedInUser.loggedIn = true;
+			res.sendStatus(200);
+		} else {
+			console.log('The username or password is incorrect. Try again.');
+			res.redirect('/signin');
+		}
+	});
 });
 
 app.listen(8080, function() {
