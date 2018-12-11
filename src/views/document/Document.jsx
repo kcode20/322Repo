@@ -77,8 +77,8 @@ class Document extends React.Component {
 									Underline
 								</Button>
 							</ButtonGroup>
-							<Button color="primary" onClick={this.onSubmit}>
-								Submit
+							<Button color="primary" size="sm" onClick={this.onSubmit}>
+								Save
 							</Button>
 							<div className="editor">
 								<Editor

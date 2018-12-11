@@ -33,9 +33,7 @@ app.listen(8080, function() {
 
 app.post('/document', function(req, res) {
 	const { owner, title, content, locked } = req.body;
-	console.log(title, owner, content, locked);
 	const q = `INSERT INTO documents(owner, title, content, locked) VALUES ('${owner}', '${title}', '${content}', ${locked})`;
-	console.log(q);
 	connection.query(q, function(err, results) {
 		if (err) throw err;
 	});
