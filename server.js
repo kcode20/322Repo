@@ -83,8 +83,8 @@ app.post('/document', function(req, res) {
 	const q = `INSERT INTO documents(owner, title, content, locked) VALUES ('${owner}', '${title}', '${content}', ${locked})`;
 	connection.query(q, function(err, results) {
 		if (err) throw err;
+		if (results) res.send(results);
 	});
-	res.sendStatus(200);
 });
 
 app.get('/documents', function(req, res) {

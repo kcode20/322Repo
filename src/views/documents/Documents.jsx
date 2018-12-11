@@ -8,7 +8,8 @@ import {
 	CardTitle,
 	Button,
 } from 'reactstrap';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
+import { TiPlus } from 'react-icons/ti';
 import './Documents.css';
 
 class Documents extends React.Component {
@@ -43,6 +44,38 @@ class Documents extends React.Component {
 			});
 	};
 
+	createNewDocument = () => {
+		const { history } = this.props;
+		const data = {
+			title: 'Untitled',
+			content: '',
+			owner: 1,
+			locked: 0,
+		};
+		fetch('http://localhost:8080/document', {
+			method: 'POST',
+			mode: 'cors',
+			headers: {
+				'Content-Type': 'application/json',
+				Accept: 'application/json',
+				'Access-Control-Allow-Origin': '*',
+			},
+			body: JSON.stringify(data),
+		})
+			.then(function(response) {
+				if (response.status >= 400) {
+					throw new Error('Bad response from server');
+				}
+				if (response.status === 200) {
+					console.log(response);
+					//history.push('document/');
+				}
+			})
+			.catch(function(err) {
+				console.log(err);
+			});
+	};
+
 	render() {
 		return (
 			<div className="documents">
@@ -50,6 +83,12 @@ class Documents extends React.Component {
 					<Row>
 						<Col sm={{ size: 'auto', offset: 1 }}>
 							<h1 className="title"> My Documents </h1>
+						</Col>
+						<Col sm={{ size: 'auto', offset: 1 }}>
+							<Button onClick={this.createNewDocument} color="primary">
+								<TiPlus />
+								Create Document
+							</Button>
 						</Col>
 					</Row>
 					<Row>
@@ -75,4 +114,4 @@ class Documents extends React.Component {
 	}
 }
 
-export default Documents;
+export default withRouter(Documents);
