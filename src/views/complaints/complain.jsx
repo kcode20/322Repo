@@ -27,11 +27,8 @@ class Complain extends Component{
         console.log(this.state);
         this.setState({
             toggleComplainTo: 1, // 1 - Toggle complain to SU, -1 - to owner
-            firstName: "",
-            lastName: "",
-            email: "",
+            userName: "",
             note: "",
-            DocID: "",
         });
     }
 
