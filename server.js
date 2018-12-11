@@ -12,7 +12,7 @@ app.use(cors());
 var connection = mysql.createConnection({
 	host: 'localhost',
 	user: 'root',
-	password: 'yourDataBasePassword',
+	password: 'SJm4!5nt',
 	database: 'onedoc',
 });
 
@@ -85,4 +85,14 @@ app.post('/document', function(req, res) {
 		if (err) throw err;
 	});
 	res.sendStatus(200);
+});
+
+app.get('/documents', function(req, res) {
+	const q = `SELECT * FROM documents`;
+	connection.query(q, function(err, results) {
+		if (err) throw err;
+		if (results) {
+			res.send(results);
+		}
+	});
 });
