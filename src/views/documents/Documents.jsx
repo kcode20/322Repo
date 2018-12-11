@@ -47,10 +47,15 @@ class Documents extends React.Component {
 			<div className="documents">
 				<Container>
 					<Row>
+						<Col sm={{ size: 'auto', offset: 1 }}>
+							<h1 className="title"> My Documents </h1>
+						</Col>
+					</Row>
+					<Row>
 						{this.state.documents.map((doc, key) => {
 							return (
 								<Col key={key} sm={{ size: 'auto', offset: 1 }}>
-									<Card>
+									<Card className="document-cards">
 										<CardBody>
 											<CardTitle>{doc.title}</CardTitle>
 											<Button>View</Button>
