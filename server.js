@@ -24,7 +24,7 @@ app.post('/signup', function(req, res) {
 	let userName = req.body.username;
 	let email = req.body.email;
 	let password = req.body.password;
-	let q = `INSERT INTO users(username, email, password) VALUES ('${userName}', '${email}', '${password})'`;
+	let q = `INSERT INTO users(username, email, password) VALUES ('${userName}', '${email}', '${password}')`;
 	console.log(q);
 	connection.query(q, function(err, results) {
 		if (err) throw err;
