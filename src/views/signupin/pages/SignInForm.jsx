@@ -7,7 +7,7 @@ class SignInForm extends Component {
         this.state = {
             username: '',
             password: '',
-            level: 0,
+            // level: 0,
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -24,10 +24,39 @@ class SignInForm extends Component {
     }
 
     handleSubmit(e) {
-        e.preventDefault();
-
-        console.log('The form was submitted with the following data:');
-        console.log(this.state);
+      const { history } = this.props;
+      e.preventDefault();
+      var data = {
+    		username: this.state.username,
+    		password: this.state.password,
+    	};
+      console.log(JSON.stringify(data));
+  		fetch('http://localhost:8080/login', {
+  			method: 'POST',
+  			mode: 'cors',
+  			headers: {
+  				'Content-Type': 'application/json',
+  				Accept: 'application/json',
+  				'Access-Control-Allow-Origin': '*',
+  			},
+  			body: JSON.stringify(data),
+  		})
+  			.then(function(response) {
+  				if (response.status >= 400) {
+            history.push('/signin');
+  					throw new Error('Bad response from server');
+            // history.push('/signin');
+  				}
+  				if (response.status === 200) {
+  					history.push('/document');
+  				}
+  				// return response.json();
+  			})
+  			.catch(function(err) {
+  				console.log(err);
+  			});
+      console.log('The form was submitted with the following data:');
+      console.log(this.state);
     }
     render() {
         return (
@@ -40,8 +69,8 @@ class SignInForm extends Component {
             </div>
 
             <div className="FormTitle">
-                <NavLink to="/signin" activeClassName="FormTitle__Link--Active" className="FormTitle__Link">Sign In</NavLink> 
-                or 
+                <NavLink to="/signin" activeClassName="FormTitle__Link--Active" className="FormTitle__Link">Sign In</NavLink>
+                or
                 <NavLink exact to="/signup" activeClassName="FormTitle__Link--Active" className="FormTitle__Link">Sign Up</NavLink>
             </div>
             <div className="FormCenter">
