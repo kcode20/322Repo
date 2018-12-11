@@ -111,3 +111,9 @@ CREATE TABLE revisions (
 
 LOCK TABLES revisions WRITE;
 UNLOCK TABLES;
+
+
+-- Populate
+INSERT INTO users(username, email, password)
+VALUES ("Connie", "connie@gmail.com", "people123"),
+  ("Friend", "friend@gmail.com", "people123");
