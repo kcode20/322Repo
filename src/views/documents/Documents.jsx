@@ -10,6 +10,7 @@ import {
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import './Documents.css';
+import SuperUserConsole from '../superuser/SuperUserConsole';
 
 class Documents extends React.Component {
 	constructor(props) {
@@ -44,6 +45,7 @@ class Documents extends React.Component {
 	};
 
 	render() {
+		const isSuperUser = true;
 		return (
 			<div className="documents">
 				<Container>
@@ -69,6 +71,7 @@ class Documents extends React.Component {
 							);
 						})}
 					</Row>
+					{isSuperUser && <SuperUserConsole />}
 				</Container>
 			</div>
 		);
