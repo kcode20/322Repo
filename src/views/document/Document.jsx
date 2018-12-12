@@ -97,7 +97,7 @@ class Document extends React.Component {
 	toggleComplaint = () => {
 		this.setState({
 			toggle: !this.state.toggle,
-		});;
+		})};
 
 	toggleLock = () => {
 		const { id } = this.props.match.params;
@@ -153,14 +153,10 @@ class Document extends React.Component {
 							<Button color="primary" size="sm" onClick={this.onSubmit}>
 								Save
 							</Button>
-<<<<<<< HEAD
 							<Button color="primary" size="sm" onClick={this.routeChange}>
 								Share
 							</Button>
 							<Button onClick= {this.toggleComplaint} color="primary" size="sm">
-=======
-							<Button onClick={this.toggleComplaint} color="primary" size="sm">
->>>>>>> 3a553ee6da830e8e3bc340cc7342153c994aab64
 								File Complain
 							</Button>
 							<Button color="primary" size="sm" onClick={this.toggleLock}>
