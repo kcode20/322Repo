@@ -123,3 +123,13 @@ app.post('/toggleLock', function(req, res) {
 		}
 	});
 });
+
+app.get('/users', function(req, res) {
+	const q = `SELECT * FROM users`;
+	connection.query(q, function(err, results) {
+		if (err) throw err;
+		if (results) {
+			res.send(results);
+		}
+	});
+});
