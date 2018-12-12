@@ -112,15 +112,6 @@ CREATE TABLE revisions (
 
 LOCK TABLES revisions WRITE;
 UNLOCK TABLES;
---
-
-DROP TABLE IF EXISTS `Taboo`;
-
-CREATE TABLE `Taboo` (
-  `tabooID` int(11) NOT NULL AUTO_INCREMENT,
-  `Bad_Words` tinytext NOT NULL,
-  PRIMARY KEY (`tabooID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 DROP TABLE IF EXISTS taboo;
@@ -146,12 +137,12 @@ LOCK TABLES invitations WRITE;
 UNLOCK TABLES;
 
 -- Populate database
-INSERT INTO users(username, email, password) VALUES 
+INSERT INTO users(username, email, password) VALUES
   ("Connie", "connie@gmail.com", "people123"),
   ("Khristian", "khristian@gmail.com", "people123"),
   ("Song", "song@gmail.com", "people123"),
   ("Chantelle", "chantelle@gmail.com", "people123");
 INSERT INTO `Taboo` VALUES (1,'ass'),(2,'asshole'),(3,'bastard'),(4,'crap'),(5,'Christ on a bike'),(6,'Christ on a cracker'),(7,'damn'),(8,'goddamn'),(9,'goddamnit'),(10,'hell'),(11,'shit'),(12,'holyshit'),(13,'Jesus Christ'),(14,'Jesus'),(15,'shit'),(16,'whore'),(17,'stupid'),(18,'millenials'),(19,'dummy'),(20,'Bloody Hell'),(21,'Rubbish');
-INSERT INTO documents(owner, title, content) VALUES('1', 'My First Document', 'This is my first document. I love to write!');
-INSERT INTO documents(owner, title, content) VALUES('1', 'My Second Document', 'This is my second document. I like to write!');
-INSERT INTO documents(owner, title, content) VALUES('1', 'My Third Document', 'This is my third document. I hate to write!');
+-- INSERT INTO documents(owner, title, content) VALUES('1', 'My First Document', 'This is my first document. I love to write!');
+-- INSERT INTO documents(owner, title, content) VALUES('1', 'My Second Document', 'This is my second document. I like to write!');
+-- INSERT INTO documents(owner, title, content) VALUES('1', 'My Third Document', 'This is my third document. I hate to write!');

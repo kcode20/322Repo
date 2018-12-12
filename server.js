@@ -12,7 +12,7 @@ app.use(cors());
 var connection = mysql.createConnection({
 	host: 'localhost',
 	user: 'root',
-	password: 'yourDataBasePassword',
+	password: 'Noosa11',
 	database: 'onedoc',
 });
 
@@ -92,6 +92,19 @@ app.get('/documents', function(req, res) {
 	connection.query(q, function(err, results) {
 		if (err) throw err;
 		if (results) {
+			res.send(results);
+		}
+	});
+});
+
+app.get('/taboowords', function(req, res){
+	const q = `SELECT tabooWord FROM taboo`;
+	console.log(q);
+	connection.query(q, function(err, results){
+		if(err) throw err;
+		console.log(results);
+		if(results){
+			console.log(results);
 			res.send(results);
 		}
 	});

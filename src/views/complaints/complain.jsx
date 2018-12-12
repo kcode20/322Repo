@@ -9,7 +9,7 @@ class Complain extends Component{
             userName: "",
             note: "",
             DocName: "",
-        }
+        };
     }
 
     handleChange = (event) => {
@@ -28,12 +28,13 @@ class Complain extends Component{
         console.log("The form is submitted with the following data:");
         console.log(this.state);
         console.log(docID);
-        this.setState({
-            toggleComplainTo: 1, // 1 - Toggle complain to SU, -1 - to owner
-            userName: "",
-            note: "",
-            DocName: "",
-        });
+        // this.setState({
+        //     toggleComplainTo: 1, // 1 - Toggle complain to SU, -1 - to owner
+        //     userName: "",
+        //     note: "",
+        //     DocName: "",
+        // });
+        
     }
 
     render(){
@@ -44,7 +45,7 @@ class Complain extends Component{
                     {(this.state.toggleComplainTo === 1) ?
                         <div>
                             <p>Complain to Admin</p>
-                        </div> 
+                        </div>
                         :
                         <div>
                             <p>Complain to Owner of the Document</p>
@@ -58,12 +59,12 @@ class Complain extends Component{
                            value = {this.state.DocName} onChange = {e => this.handleChange(e)}/>
                     <textarea name="note" className="FormField_Input_Complain" placeholder="Complain" rows="4" cols="50"
                            value = {this.state.note} onChange = {e => this.handleChange(e)}/>
-                    
+
                 </form>
                 <div className = "User_Submit">
                     <button onClick={e => this.handleSubmit(e)}>Submit</button>
                 </div>
-                
+
             </div>
         );
     }

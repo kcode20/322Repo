@@ -6,6 +6,7 @@
     text-align: center;
 }
 input[type=text], select, textarea {
+    color: red;
     width: 100%; /* Full width */
     padding: 12px; /* Some padding */  
     border: 1px solid #ccc; /* Gray border */
@@ -20,5 +21,3 @@ input[type=text], select, textarea {
     text-align: center;
     margin:0 auto;
 }
-
-  

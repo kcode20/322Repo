@@ -4,17 +4,42 @@ class TabooWord extends Component{
     constructor(){
         super();
         this.state = {
-            word: "",
+            word: [],
         };
     }
 
-    clickHandler = (e) => {
+    componentDidMount = () => {
+      fetch('http://localhost:8080/taboowords', {
+        method: 'GET',
+        mode: 'cors',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          'Access-Control-Allow-Origin': '*',
+        },
+
+      })
+        .then(response => {
+          if(response.status >= 400){
+            throw new Error('Bad response from server');
+          }
+          return response.json();
+        })
+        .then(data => {
+          this.setState({word: data});
+        })
+        .catch(function(err){
+          console.log(err);
+        });
+    };
+
+    clickHandler = (e) => { //submitHandler...OR handleSubmit
         e.preventDefault();
         console.log("The form is submitted with the following data:");
         console.log(this.state);
-        this.setState({
-            word: "",
-        });
+        // this.setState({
+        //     word: "",
+        // });
     }
 
     handleChange = (e) => {
@@ -31,6 +56,7 @@ class TabooWord extends Component{
                     <p><i>Please submit one at a time...</i></p>
                 </div>
                 <div className="FormCenter">
+
                     <form >
                         <input type="text" name="word" className="FormField_Input" placeholder="Word"
                             value = {this.state.word} onChange = {e => this.handleChange(e)}/>
