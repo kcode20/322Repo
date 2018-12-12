@@ -21,13 +21,11 @@ Document Sharing System Software
 - [ ] Create New documents- They own the documents they create.
 - [ ] Invite other ou’s to update documents they own.
 
-<hr />
 #### Decide whether the document is:
 - [ ] open to the public (can be seen by everyone)
 - [ ] restricted (can only be viewed as read-only by gu’s and edited by ou’s)
 - [ ] shared (viewed/ edited by ou’s who are invited)
 - [ ] private
-<hr />
 
 - [ ] accept/deny invitation(s) placed by other ou’s for their specific documents
 - [ ] lock a shared document for updating (only one ou can lock a document successfully and system should indicate
