@@ -3,7 +3,7 @@ import { Editor, EditorState, RichUtils, ContentState } from 'draft-js';
 import { Redirect } from 'react-router-dom'
 import { Button, ButtonGroup, Container, Row, Col } from 'reactstrap';
 import { TiLockOpen, TiLockClosed } from 'react-icons/ti';
-import {Link} from 'react-router-dom';
+import {Link, withRouter} from 'react-router-dom';
 import Complain from '../complaints/complain';
 import Invite from '../docInvitation/docInvitation'
 import './Document.css';
@@ -153,7 +153,7 @@ class Document extends React.Component {
       return <Redirect to='/docInvitation' />
     }
 		if (this.state.redirect2) {
-			return <Redirect to='/documents' />
+			return <Redirect to='/1/documents' />
 		}
   }
 
@@ -168,7 +168,7 @@ class Document extends React.Component {
   }
   renderRedirect1 = () => {
 		if (this.state.redirect2) {
-			return <Redirect to='/documents' />
+			return <Redirect to='/1/documents'/>
 		}
   }
 
@@ -238,4 +238,4 @@ class Document extends React.Component {
 	}
 }
 
-export default Document;
+export default withRouter(Document);

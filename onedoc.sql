@@ -187,6 +187,9 @@ VALUES ("fuck"),
   ("idiot"),
   ("dumbass"), ("asshole"), ("goddamit");
 
+INSERT INTO taboosuggest(word)
+VALUES ("freak"), ("whore"), ("hoe");
+
 INSERT INTO users(username, email, password, type)
 VALUES ("Connie", "connie@gmail.com", "people123", "SU"),
   ("Khristian", "khristian@gmail.com", "people123", "G"),
