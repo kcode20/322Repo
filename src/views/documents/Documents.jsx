@@ -12,6 +12,7 @@ import { Link, withRouter } from 'react-router-dom';
 import { TiPlus } from 'react-icons/ti';
 import './Documents.css';
 import SuperUserConsole from '../superuser/SuperUserConsole';
+import { Twitter } from 'react-social-sharing';
 
 class Documents extends React.Component {
 	constructor(props) {
@@ -130,6 +131,10 @@ class Documents extends React.Component {
 											<Link to={link}>
 												<Button>View</Button>
 											</Link>
+											<Twitter
+												size="small"
+												link={`https://onedoc.com/document/${doc.docID}`}
+											/>
 										</CardBody>
 									</Card>
 								</Col>
