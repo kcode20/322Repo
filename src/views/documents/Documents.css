@@ -1,0 +1,14 @@
+.documents {
+	background-color: #282c34;
+	min-height: 100vh;
+	padding-top: 25px;
+	color: white;
+}
+
+.title {
+	padding-bottom: 15px;
+}
+
+.document-cards {
+	color: black;
+}

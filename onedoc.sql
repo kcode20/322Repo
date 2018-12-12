@@ -50,21 +50,6 @@ UNLOCK TABLES;
 -- Table structure for table `Complaints`
 --
 
-DROP TABLE IF EXISTS `Complaints`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `Complaints` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `docID` int(11) NOT NULL,
-  `Author` int(11) NOT NULL,
-  `Issue` varchar(60) NOT NULL,
-  `Created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `Resolved` bit(1) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `Author` (`Author`),
-  KEY `docID` (`docID`),
-  CONSTRAINT `Complaints_ibfk_1` FOREIGN KEY (`Author`) REFERENCES `Collaborators` (`userID`),
-  CONSTRAINT `Complaints_ibfk_2` FOREIGN KEY (`docID`) REFERENCES `Collaborators` (`docID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -247,14 +232,3 @@ LOCK TABLES `Users` WRITE;
 INSERT INTO `Users` VALUES (1,'chloe','Super','cl@me.com','swe322'),(2,'chloe0','Basic','cl0@me.com','swe323');
 /*!40000 ALTER TABLE `Users` ENABLE KEYS */;
 UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
-
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2018-12-12  2:26:05
