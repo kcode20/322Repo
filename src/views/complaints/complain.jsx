@@ -34,10 +34,45 @@ class Complain extends Component{
         //     note: "",
         //     DocName: "",
         // });
-        
+        const { history } = this.props
+        console.log("Complain written: ", this.state.userName);
+        var data = {
+          type: this.state.toggleComplainTo,
+      		username: this.state.userName,
+      		note: this.state.note,
+          docID: docID.id,
+          docName: this.state.DocName,
+      	};
+        console.log(JSON.stringify(data));
+        fetch('http://localhost:8080/complain', {
+          method: 'POST',
+          mode: 'cors',
+          headers: {
+    				'Content-Type': 'application/json',
+    				Accept: 'application/json',
+    				'Access-Control-Allow-Origin': '*',
+    			},
+          body: JSON.stringify(data),
+        })
+        .then(function(response) {
+  				if (response.status >= 400) {
+            history.push('/signin');
+  					throw new Error('Bad response from server');
+            // history.push('/signin');
+  				}
+  				if (response.status === 200) {
+  					history.push('/documents');
+  				}
+  				// return response.json();
+  			})
+  			.catch(function(err) {
+  				console.log(err);
+  			});
     }
 
     render(){
+      console.log(this.props.docID);
+      console.log("here");
         return(
             <div>
                 <div className = "User_Interaction">

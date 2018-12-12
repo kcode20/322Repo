@@ -121,6 +121,38 @@ app.get('/document/:id', function(req, res) {
 	});
 });
 
+app.post('/complain', function(req, res){
+	const {type, username, note, docID, docName} = req.body;
+	console.log("username: ", username);
+	let t = '';
+	if(type === 1){
+		t = 'ComplainAboutOwner';
+	}
+	else{
+		t = 'ComplainAboutOU';
+	}
+	console.log("type: ", t);
+	// const q = `INSERT INTO complaints(type, issue, docID, author) VALUES ( '${t}' , '${note}', '${docID}' )`;
+	// const q = "INSERT INTO complaints(type, issue, docID, author) VALUES ( '"+ t +"' , '"+ note +"', '"+ docID + "', SELECT id FROM users WHERE username = '"+ username + "' )";
+	const q = `SELECT id FROM users WHERE username = '${username}'`;
+	let id;
+	connection.query(q, function(err, results){
+		if(err) throw err;
+		id = results[0].id;
+		r = `INSERT INTO complaints(type, issue, docID, author) VALUES ( '${t}' , '${note}', '${docID}', ${id})`;
+		connection.query(r, function(err, results){
+			if(err) throw err; 
+		});
+	});
+	console.log(q);
+	connection.query(q, function(err, results){
+		if(err) throw err;
+	});
+	// q = `SELECT owner FROM documents JOIN users ON users.id = documents.owner WHERE users.username = '${userName}'`;
+
+	res.sendStatus(200);
+});
+
 app.post('/toggleLock', function(req, res) {
 	const { docID, locked } = req.body;
 	const q = `UPDATE documents SET locked='${locked}' WHERE docID='${docID}'`;

@@ -23,7 +23,7 @@ CREATE TABLE documents (
   docID int(11) NOT NULL AUTO_INCREMENT,
   owner int(11) NOT NULL,
   title varchar(45) NOT NULL,
-  content blob,
+  content VARCHAR(1000),
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   modified_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   locked ENUM('locked', 'unlocked') NOT NULL DEFAULT 'locked',
@@ -81,8 +81,9 @@ CREATE TABLE complaints (
   id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   docID int(11) NOT NULL,
   author int(11) NOT NULL,
-  issue varchar(60) NOT NULL,
+  issue varchar(1000) NOT NULL,
   created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  type ENUM("ComplainAboutOwner", "ComplainAboutOU"),
   resolved tinyint(1) NOT NULL,
   KEY author (author),
   KEY docID (docID),
@@ -101,7 +102,7 @@ CREATE TABLE revisions (
   docID int(11) NOT NULL,
   author int(11) NOT NULL,
   type tinytext NOT NULL,
-  revised blob NOT NULL,
+  revised VARCHAR(2000) NOT NULL,
   created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   accept tinyint(1) DEFAULT NULL,
   KEY author (author),
@@ -143,6 +144,12 @@ INSERT INTO users(username, email, password) VALUES
   ("Song", "song@gmail.com", "people123"),
   ("Chantelle", "chantelle@gmail.com", "people123");
 INSERT INTO `Taboo` VALUES (1,'ass'),(2,'asshole'),(3,'bastard'),(4,'crap'),(5,'Christ on a bike'),(6,'Christ on a cracker'),(7,'damn'),(8,'goddamn'),(9,'goddamnit'),(10,'hell'),(11,'shit'),(12,'holyshit'),(13,'Jesus Christ'),(14,'Jesus'),(15,'shit'),(16,'whore'),(17,'stupid'),(18,'millenials'),(19,'dummy'),(20,'Bloody Hell'),(21,'Rubbish');
+
+INSERT INTO documents(owner, title, content, created_at, modified_at, locked)
+VALUES (1, "Software Engineering", "asdfghjkl;qwertyuiopzxcvbnm", DATE '2018-08-15', DATE '2018-10-15', 'locked'),
+ (1, "Flower", "Tulips, daisy, sunflower", DATE '2018-11-15', DATE '2018-12-01', 'locked'),
+ (2, "US history", "American Revolution, George Washington", DATE '2018-12-02', DATE '2018-12-10', 'locked');
+ 
 -- INSERT INTO documents(owner, title, content) VALUES('1', 'My First Document', 'This is my first document. I love to write!');
 -- INSERT INTO documents(owner, title, content) VALUES('1', 'My Second Document', 'This is my second document. I like to write!');
 -- INSERT INTO documents(owner, title, content) VALUES('1', 'My Third Document', 'This is my third document. I hate to write!');

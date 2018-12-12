@@ -5,6 +5,7 @@ class TabooWord extends Component{
         super();
         this.state = {
             word: [],
+            suggestion: '',
         };
     }
 
@@ -49,8 +50,18 @@ class TabooWord extends Component{
     }
 
     render(){
+      console.log(this.state.word);
         return(
             <div>
+                <div>
+                  <ul>
+                    {
+                      this.state.word.map((taboo, key) =>{
+                        return <li key={key}>{taboo.tabooWord}</li>
+                      })
+                    }
+                    </ul>
+                </div>
                 <div className = "TabooDiv">
                     <p>Taboo World Submission Page</p>
                     <p><i>Please submit one at a time...</i></p>
@@ -59,7 +70,7 @@ class TabooWord extends Component{
 
                     <form >
                         <input type="text" name="word" className="FormField_Input" placeholder="Word"
-                            value = {this.state.word} onChange = {e => this.handleChange(e)}/>
+                            value = {this.state.suggestion} onChange = {e => this.handleChange(e)}/>
                     </form>
                     <button onClick = {e => this.clickHandler(e)}>Submit</button>
                 </div>
