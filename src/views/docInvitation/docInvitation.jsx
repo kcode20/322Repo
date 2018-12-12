@@ -5,9 +5,7 @@ export default class docInvitation extends React.Component{
     constructor(){
         super();
         this.state = {
-            documentID: "",
-            inputUsername1: "",
-            inputUsername2: "",
+            inputUsername: "",
         }
     }
 
@@ -21,15 +19,11 @@ export default class docInvitation extends React.Component{
         //this.props.DocID and this.props.ownerID are needed to proceed...
         console.log("you will be submitting the username below...");
         //Will submit this.props.DocID and this.props.ownerID and inputUsername...
-        console.log(this.state.documentID);
-        console.log(this.state.inputUsername1);
-        console.log(this.state.inputUsername2);
+        console.log(this.state.inputUsername);
 
         //Clearing the state, ready for more inputs...
         this.setState({
-            documentID:"",
-            inputUsername1: "",
-            inputUsername2: "",
+            inputUsername: "",
         })
     }
     render(){

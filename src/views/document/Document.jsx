@@ -138,23 +138,47 @@ class Document extends React.Component {
 	};
 
 	state = {
-    redirect: false
+    redirect: false,
+		redirect2: false,
   }
   setRedirect = () => {
     this.setState({
-      redirect: true
+      redirect: true,
+			redirect2: true
+
     })
   }
   renderRedirect = () => {
     if (this.state.redirect) {
       return <Redirect to='/docInvitation' />
     }
+		if (this.state.redirect2) {
+			return <Redirect to='/documents' />
+		}
+  }
+
+	state = {
+		redirect2: false,
+  }
+  setRedirect1 = () => {
+    this.setState({
+			redirect2: true
+
+    })
+  }
+  renderRedirect1 = () => {
+		if (this.state.redirect2) {
+			return <Redirect to='/documents' />
+		}
   }
 
 	render() {
 		return (
 			<div className="document">
-			{this.renderRedirect()}
+			{this.renderRedirect1()}
+			<Button color="primary" id="back_button" onClick={this.setRedirect1}>
+				Back
+			</Button>
 				<Container>
 					<Row>
 						<Col sm="12">
@@ -172,6 +196,7 @@ class Document extends React.Component {
 							<Button color="primary" size="sm" onClick={this.onSubmit}>
 								Save
 							</Button>
+								{this.renderRedirect()}
 							<Button color="primary" size="sm" onClick={this.setRedirect}>
 								Share
 							</Button>

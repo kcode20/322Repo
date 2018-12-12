@@ -263,7 +263,7 @@ app.post('/addTaboo', function(req, res) {
 
 app.get('/docInvitation', function(req, res) {
 	const { sender, docID, receiver } = req.body;
-	const q = `INSERT INTO invitations (sender, docID, receiver) VALUES ((SELECT owner FROM documents WHERE docID = ${docID}), (SELECT docID FROM documents WHERE docID = ${docID}), (SELECT owner FROM documents WHERE docID = ${docID}))`;
+	const q = `INSERT INTO invitations (sender, docID, receiver) VALUES ((SELECT owner FROM documents WHERE owner = ${sender}), (SELECT docID FROM documents WHERE docID = ${docID}), (SELECT userID FROM users WHERE userID = ${receiver}))`;
 
 	connection.query(q, function(err, results) {
 		if (err) throw err;
