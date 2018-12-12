@@ -12,7 +12,7 @@ app.use(cors());
 var connection = mysql.createConnection({
 	host: 'localhost',
 	user: 'root',
-	password: 'Noosa11',
+	password: '',
 	database: 'onedoc',
 });
 
@@ -259,6 +259,21 @@ app.post('/addTaboo', function(req, res) {
 		if (err) throw err;
 	});
 	res.sendStatus(200);
+});
+
+app.get('/docInvitation', function(req, res) {
+	const { sender, docID, receiver } = req.body;
+	const q = `INSERT INTO invitations (sender, docID, receiver) VALUES ((SELECT owner FROM documents WHERE docID = ${docID}), (SELECT docID FROM documents WHERE docID = ${docID}), (SELECT owner FROM documents WHERE docID = ${docID}))`;
+
+	connection.query(q, function(err, results) {
+		if (err) throw err;
+		if (results) {
+			connection.query(r, function(err, results) {
+				if (err) throw err;
+				if (results) res.send(results);
+			});
+		}
+	});
 });
 
 app.get('/users/:id', function(req, res){

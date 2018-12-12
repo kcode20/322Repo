@@ -1,5 +1,6 @@
 import React from 'react';
 import { Editor, EditorState, RichUtils, ContentState } from 'draft-js';
+import { Redirect } from 'react-router-dom'
 import { Button, ButtonGroup, Container, Row, Col } from 'reactstrap';
 import { TiLockOpen, TiLockClosed } from 'react-icons/ti';
 import {Link} from 'react-router-dom';
@@ -94,8 +95,7 @@ class Document extends React.Component {
 	toggleComplaint = () => {
 		this.setState({
 			toggle: !this.state.toggle,
-		});
-	};
+		})};
 
 	toggleInv = () => {
 		this.setState({
@@ -137,9 +137,24 @@ class Document extends React.Component {
 			});
 	};
 
+	state = {
+    redirect: false
+  }
+  setRedirect = () => {
+    this.setState({
+      redirect: true
+    })
+  }
+  renderRedirect = () => {
+    if (this.state.redirect) {
+      return <Redirect to='/docInvitation' />
+    }
+  }
+
 	render() {
 		return (
 			<div className="document">
+			{this.renderRedirect()}
 				<Container>
 					<Row>
 						<Col sm="12">
@@ -157,7 +172,10 @@ class Document extends React.Component {
 							<Button color="primary" size="sm" onClick={this.onSubmit}>
 								Save
 							</Button>
-							<Button onClick={this.toggleComplaint} color="primary" size="sm">
+							<Button color="primary" size="sm" onClick={this.setRedirect}>
+								Share
+							</Button>
+							<Button onClick= {this.toggleComplaint} color="primary" size="sm">
 								File Complain
 							</Button>
 							<Link to="/tabooword">

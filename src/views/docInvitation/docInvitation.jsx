@@ -5,13 +5,17 @@ export default class docInvitation extends React.Component{
     constructor(){
         super();
         this.state = {
-            inputUsername: "",
+            documentID: "",
+            inputUsername1: "",
+            inputUsername2: "",
         }
     }
 
     changeHandler = (event) => {
         this.setState({
-            inputUsername: event.target.value,
+            documentID: event.target.value,
+            inputUsername1: event.target.value,
+            inputUsername2: event.target.value,
         });
     }
 
@@ -19,18 +23,26 @@ export default class docInvitation extends React.Component{
         //this.props.DocID and this.props.ownerID are needed to proceed...
         console.log("you will be submitting the username below...");
         //Will submit this.props.DocID and this.props.ownerID and inputUsername...
-        console.log(this.state.inputUsername);
+        console.log(this.state.documentID);
+        console.log(this.state.inputUsername1);
+        console.log(this.state.inputUsername2);
 
         //Clearing the state, ready for more inputs...
         this.setState({
-            inputUsername: "",
+            documentID:"",
+            inputUsername1: "",
+            inputUsername2: "",
         })
     }
     render(){
         return(
             <div className = "form">
-                <input id = "intputUsername" type = "text" placeholder="username of the wanted writer"
-                       value = {this.state.inputUsername} onChange = {(e) => this.changeHandler(e)}></input>
+                <input id = "documentID" type = "text" placeholder="document ID"
+                  value = {this.state.documentID} onChange = {(e) => this.changeHandler(e)}></input>
+                <input id = "inputUsername1" type = "text" placeholder="sender"
+                  value = {this.state.inputUsername1} onChange = {(e) => this.changeHandler(e)}></input>
+                <input id = "inputUsername2" type = "text" placeholder="receiver"
+                  value = {this.state.inputUsername2} onChange = {(e) => this.changeHandler(e)}></input>
                 <button onClick = {this.handleSubmit}>Submit</button>
             </div>
         )
