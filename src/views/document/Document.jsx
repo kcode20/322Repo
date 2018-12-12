@@ -1,5 +1,6 @@
 import React from 'react';
 import { Editor, EditorState, RichUtils, ContentState } from 'draft-js';
+import { Redirect } from 'react-router-dom'
 import { Button, ButtonGroup, Container, Row, Col } from 'reactstrap';
 import { TiLockOpen, TiLockClosed } from 'react-icons/ti';
 import Complain from '../complaints/complain';
@@ -14,14 +15,8 @@ class Document extends React.Component {
 			locked: false,
 			toggle: false,
 		};
-		this.routeChange = this.routeChange.bind(this);
 		this.onChange = editorState => this.setState({ editorState });
 	}
-
-	routeChange = () => {
-	 let path = `http://localhost:3000/invitation`;
-	 this.props.history.push(path);
- 	};
 
 	componentDidMount = () => {
 		const { id } = this.props.match.params;
@@ -133,9 +128,24 @@ class Document extends React.Component {
 			});
 	};
 
+	state = {
+    redirect: false
+  }
+  setRedirect = () => {
+    this.setState({
+      redirect: true
+    })
+  }
+  renderRedirect = () => {
+    if (this.state.redirect) {
+      return <Redirect to='/docInvitation' />
+    }
+  }
+
 	render() {
 		return (
 			<div className="document">
+			{this.renderRedirect()}
 				<Container>
 					<Row>
 						<Col sm="12">
@@ -153,7 +163,7 @@ class Document extends React.Component {
 							<Button color="primary" size="sm" onClick={this.onSubmit}>
 								Save
 							</Button>
-							<Button color="primary" size="sm" onClick={this.routeChange}>
+							<Button color="primary" size="sm" onClick={this.setRedirect}>
 								Share
 							</Button>
 							<Button onClick= {this.toggleComplaint} color="primary" size="sm">

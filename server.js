@@ -12,7 +12,7 @@ app.use(cors());
 var connection = mysql.createConnection({
 	host: 'localhost',
 	user: 'root',
-	password: 'yourDataBasePassword',
+	password: '',
 	database: 'onedoc',
 });
 
@@ -211,6 +211,21 @@ app.post('/promoteAndDemote', function(req, res) {
 	const { type, id } = req.body;
 	const q = `UPDATE users SET type='${type}' WHERE id='${id}'`;
 	const r = `SELECT * FROM users WHERE id='${id}'`;
+
+	connection.query(q, function(err, results) {
+		if (err) throw err;
+		if (results) {
+			connection.query(r, function(err, results) {
+				if (err) throw err;
+				if (results) res.send(results);
+			});
+		}
+	});
+});
+
+app.get('/docInvitation', function(req, res) {
+	const { sender, docID, receiver } = req.body;
+	const q = `INSERT INTO invitations (sender, docID, receiver) VALUES ((SELECT owner FROM documents WHERE docID = ${docID}), (SELECT docID FROM documents WHERE docID = ${docID}), (SELECT owner FROM documents WHERE docID = ${docID}))`;
 
 	connection.query(q, function(err, results) {
 		if (err) throw err;
