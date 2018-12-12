@@ -61,7 +61,7 @@ class Complain extends Component{
             // history.push('/signin');
   				}
   				if (response.status === 200) {
-  					history.push('/documents');
+  					alert('Complain submitted. Click on the File Complain button to close');
   				}
   				// return response.json();
   			})

@@ -40,7 +40,7 @@ DROP TABLE IF EXISTS permissions;
 
 CREATE TABLE permissions (
   classID int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  class tinytext NOT NULL,
+  class tinytext,
   wrt int(1) NOT NULL,
   R BOOLEAN NOT NULL,
   complain bit(1) NOT NULL,
@@ -117,7 +117,6 @@ UNLOCK TABLES;
 --   issue text NOT NULL,
 --   created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 --   type ENUM("ComplainAboutOwner", "ComplainAboutOU"),
---   resolved bit(1) NOT NULL,
 --   KEY author (author),
 --   KEY docID (docID),
 --   FOREIGN KEY (author) REFERENCES collaborators (userID),
@@ -126,7 +125,7 @@ UNLOCK TABLES;
 --
 -- LOCK TABLES complaints WRITE;
 -- UNLOCK TABLES;
---
+
 
 DROP TABLE IF EXISTS revisions;
 
@@ -194,12 +193,13 @@ VALUES ("Connie", "connie@gmail.com", "people123", "G"),
   ("Song", "song@gmail.com", "people123", "G"),
   ("Chantelle", "chantelle@gmail.com", "people123", "G");
 
-
  INSERT INTO documents(owner, title, content, created_at, modified_at, locked)
-VALUES('1', 'My First Document', 'This is my first document. I love to write!', DATE '2018-08-15', DATE '2018-10-15', 'locked'),
-  ('2', 'My Fab Document', 'This is my fabulous document. I like to write!', DATE '2018-11-15', DATE '2018-12-01', 'locked'),
-  ('1', 'My 2nd Document', 'This is my 2nd document. I hate to write!', DATE '2018-12-02', DATE '2018-12-10', 'locked');
+VALUES('1', 'Document', 'This is my first document. I love to write!', DATE '2018-08-15', DATE '2018-10-15', 'locked'),
+  ('2', 'Fashion', 'This is my fabulous document. I like to write!', DATE '2018-11-15', DATE '2018-12-01', 'locked'),
+  ('1', 'Birthday', 'This is my 2nd document. I hate to write!', DATE '2018-12-02', DATE '2018-12-10', 'locked');
 
-  INSERT INTO taboosuggest(word) VALUES ('freak');
-  INSERT INTO taboosuggest(word) VALUES ('hoe');
-  
+INSERT INTO permissions(wrt, R, complain, new, share, loc, rec, download, comment)
+VALUES (1, false, 1, 0, 0, 0, 0, 0, 0);
+
+INSERT INTO collaborators(docID, userID, classID)
+VALUES (1, 3, 1);
