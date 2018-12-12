@@ -199,3 +199,7 @@ VALUES ("Connie", "connie@gmail.com", "people123", "G"),
 VALUES('1', 'My First Document', 'This is my first document. I love to write!', DATE '2018-08-15', DATE '2018-10-15', 'locked'),
   ('2', 'My Fab Document', 'This is my fabulous document. I like to write!', DATE '2018-11-15', DATE '2018-12-01', 'locked'),
   ('1', 'My 2nd Document', 'This is my 2nd document. I hate to write!', DATE '2018-12-02', DATE '2018-12-10', 'locked');
+
+  INSERT INTO taboosuggest(word) VALUES ('freak');
+  INSERT INTO taboosuggest(word) VALUES ('hoe');
+  

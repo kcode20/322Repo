@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { Table, Button } from 'reactstrap';
 
-import './Documents.css';
+import './TabooSuggest.css';
 
 class TabooSuggest extends Component {
 	constructor() {
 		super();
 		this.state = {
-			taboosuggestions: [],
+			tabooSuggest: [],
 		};
 	}
 
@@ -28,6 +28,7 @@ class TabooSuggest extends Component {
 				return response.json();
 			})
 			.then(data => {
+				console.log(data);
 				this.setState({ tabooSuggest: data });
 			})
 			.catch(function(err) {
@@ -36,7 +37,7 @@ class TabooSuggest extends Component {
 	};
 
 	render() {
-		console.log(this.state.taboosuggestions);
+		console.log(this.state.tabooSuggest);
 		return (
 			<div className="memberships">
 				<h1> All Documents </h1>
@@ -49,7 +50,8 @@ class TabooSuggest extends Component {
 						</tr>
 					</thead>
 					<tbody>
-						{this.state.taboosuggestions.map((taboo, key) => {
+						{this.state.tabooSuggest.map((taboo, key) => {
+							console.log(taboo);
 							return (
 								<tr key={key}>
 									<td>{taboo.word}</td>
