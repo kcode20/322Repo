@@ -260,3 +260,16 @@ app.post('/addTaboo', function(req, res) {
 	});
 	res.sendStatus(200);
 });
+
+app.get('/users/:id', function(req, res){
+	const {id} = req.params;
+	q = `SELECT * FROM users WHERE id='${id}'`;
+	console.log(q);
+	connection.query(q, function(err, results) {
+		if (err) throw err;
+		if (results) {
+			console.log(results);
+			res.send(results);
+		}
+	});
+})
