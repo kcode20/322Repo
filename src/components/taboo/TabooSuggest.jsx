@@ -36,11 +36,14 @@ class TabooSuggest extends Component {
 			});
 	};
 
+	addTaboo = word => {};
+	dismissTaboo = word => {};
+
 	render() {
 		console.log(this.state.tabooSuggest);
 		return (
 			<div className="memberships">
-				<h1> All Documents </h1>
+				<h1> Taboo Suggestions </h1>
 				<Table>
 					<thead>
 						<tr>
@@ -56,12 +59,20 @@ class TabooSuggest extends Component {
 								<tr key={key}>
 									<td>{taboo.word}</td>
 									<td>
-										<Button color="primary" size="sm">
+										<Button
+											color="primary"
+											size="sm"
+											onClick={() => this.addTaboo(taboo.word)}
+										>
 											Add
 										</Button>
 									</td>
 									<td>
-										<Button color="primary" size="sm">
+										<Button
+											color="primary"
+											size="sm"
+											onClick={() => this.dissmissTaboo(taboo.word)}
+										>
 											Dissmiss
 										</Button>
 									</td>
