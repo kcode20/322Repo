@@ -40,12 +40,16 @@ class Memberships extends Component {
 		if (type === 'OU') return 'Ordinary User';
 	};
 
-	promoteUser = (id, type) => {
+	changeUserPermissions = (id, type, action) => {
+		const actionTypePromotion = type === 'G' ? 'OU' : type;
+		const actionTypeDemotion = type === 'OU' ? 'G' : type;
+
 		const data = {
 			id,
-			type: type === 'G' ? 'OU' : type,
+			type: action === 'promote' ? actionTypePromotion : actionTypeDemotion,
 		};
-		fetch('http://localhost:8080/promote', {
+
+		fetch('http://localhost:8080/promoteAndDemote', {
 			method: 'POST',
 			mode: 'cors',
 			headers: {
@@ -117,7 +121,13 @@ class Memberships extends Component {
 										<Button
 											color="primary"
 											size="sm"
-											onClick={() => this.promoteUser(user.id, user.type)}
+											onClick={() =>
+												this.changeUserPermissions(
+													user.id,
+													user.type,
+													'promote'
+												)
+											}
 										>
 											Promote
 										</Button>
@@ -126,7 +136,9 @@ class Memberships extends Component {
 										<Button
 											color="primary"
 											size="sm"
-											onClick={() => this.promoteUser(user.id, user.type)}
+											onClick={() =>
+												this.changeUserPermissions(user.id, user.type, 'demote')
+											}
 										>
 											Demote
 										</Button>
