@@ -2,6 +2,7 @@ import React from 'react';
 import { Editor, EditorState, RichUtils, ContentState } from 'draft-js';
 import { Button, ButtonGroup, Container, Row, Col } from 'reactstrap';
 import { TiLockOpen, TiLockClosed } from 'react-icons/ti';
+import {Link} from 'react-router-dom';
 import Complain from '../complaints/complain';
 import Invite from '../docInvitation/docInvitation'
 import './Document.css';
@@ -159,6 +160,11 @@ class Document extends React.Component {
 							<Button onClick={this.toggleComplaint} color="primary" size="sm">
 								File Complain
 							</Button>
+							<Link to="/tabooword">
+								<Button color="primary" size="sm">
+									Taboo Word
+								</Button>
+							</Link>
 							<Button color="primary" size="sm" onClick={this.toggleLock}>
 								{this.state.locked === 'locked' ? (
 									<TiLockClosed />
