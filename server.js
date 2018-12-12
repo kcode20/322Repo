@@ -133,3 +133,19 @@ app.get('/users', function(req, res) {
 		}
 	});
 });
+
+app.post('/promote', function(req, res) {
+	const { type, id } = this.req.body;
+	const q = `UPDATE users SET type='${type} WHERE id='${id}'`;
+	const r = `SELECT * FROM users WHERE id='${id}'`;
+	console.log(q);
+	connection.query(q, function(err, results) {
+		if (err) throw err;
+		if (results) {
+			connection.query(r, function(err, results) {
+				if (err) throw err;
+				if (results) res.send(results);
+			});
+		}
+	});
+});
