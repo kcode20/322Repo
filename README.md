@@ -22,7 +22,7 @@ Document Sharing System Software
 - [ ] Invite other ou’s to update documents they own.
 
 <hr />
-##### Decide whether the document is:
+#### Decide whether the document is:
 - [ ] open to the public (can be seen by everyone)
 - [ ] restricted (can only be viewed as read-only by gu’s and edited by ou’s)
 - [ ] shared (viewed/ edited by ou’s who are invited)
