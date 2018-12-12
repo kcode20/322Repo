@@ -4,38 +4,52 @@ class TabooWord extends Component{
     constructor(){
         super();
         this.state = {
-            word: "",
+            //word: [],
+            word: ["Hi", "Bye", "Hello "],
+            inputValue: "",
         };
     }
 
     clickHandler = (e) => {
         e.preventDefault();
+        //this.state.inputValue 
         console.log("The form is submitted with the following data:");
-        console.log(this.state);
-        this.setState({
-            word: "",
-        });
+        console.log(this.state.inputValue);
+        this.setState({inputValue: ""});
+        
     }
 
-    handleChange = (e) => {
+    handleChange = (event) => {
         this.setState({
-            [e.target.name]: e.target.value
-        });
+            inputValue: event.target.value,
+        })
     }
 
     render(){
+        let array = (
+            <div>
+                {this.state.word.map(( word, index ) => {
+                    return (
+                        <div>
+                            <li>{this.state.word[index]}</li>
+                        </div>
+                    )
+                })}
+            </div>
+        )
         return(
             <div>
                 <div className = "TabooDiv">
                     <p>Taboo World Submission Page</p>
                     <p><i>Please submit one at a time...</i></p>
+                    {array}
                 </div>
                 <div className="FormCenter">
                     <form >
-                        <input type="text" name="word" className="FormField_Input" placeholder="Word"
-                            value = {this.state.word} onChange = {e => this.handleChange(e)}/>
+                        <input type="text" className="FormField_Input" placeholder="Word"
+                            value = {this.state.inputValue} onChange = {this.handleChange}/>
                     </form>
-                    <button onClick = {e => this.clickHandler(e)}>Submit</button>
+                    <button onClick = {this.clickHandler}>Submit</button>
                 </div>
 
             </div>

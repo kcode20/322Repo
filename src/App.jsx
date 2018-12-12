@@ -11,6 +11,8 @@ import DocumentCollection from './views/documents/Documents';
 import TabooWord from './views/tabooWord/TabooWord'
 import OUApplication from './views/applications/OUApplication'
 import ProcessComplain from './views/ProcessComplain/ProcessComplain'
+import docInvitation from './views/docInvitation/docInvitation'
+import searchFiles from './views/searchFiles/SearchFiles'
 const About = () => <h2>About</h2>;
 // const Users = () => <h2>Users</h2>; // Added users page
 
@@ -23,6 +25,8 @@ const AppRouter = () => (
 			<Route path="/signup" component={SignUpForm} />
 			<Route path="/signin" component={SignInForm} />
 			{/* <Route path="/complain" component={Complain} /> */}
+			<Route path="/docInvitation" component={docInvitation} />
+			<Route path="/searchfiles" component={searchFiles} />
 			<Route path="/tabooword" component={TabooWord} />
 			<Route path="/accordenyinv" component={AccDenyInvitation} />
 			<Route path="/OUApplication" component={OUApplication} />
