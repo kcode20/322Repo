@@ -6,6 +6,7 @@ import SignInForm from './views/signupin/pages/SignInForm';
 import SignUpForm from './views/signupin/pages/SignUpForm';
 import Document from './views/document/Document';
 // import Complain from './views/complaints/complain';
+import AccDenyInvitation from './views/invitation/AccDenyInvitation'
 import DocumentCollection from './views/documents/Documents';
 import TabooWord from './views/tabooWord/TabooWord'
 import OUApplication from './views/applications/OUApplication'
@@ -23,6 +24,7 @@ const AppRouter = () => (
 			<Route path="/signin" component={SignInForm} />
 			{/* <Route path="/complain" component={Complain} /> */}
 			<Route path="/tabooword" component={TabooWord} />
+			<Route path="/accordenyinv" component={AccDenyInvitation} />
 			<Route path="/OUApplication" component={OUApplication} />
 			<Route path="/processcomplain" component={ProcessComplain} />
 			<Route path="/document/:id" component={Document} />
