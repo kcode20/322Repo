@@ -16,10 +16,11 @@ Document Sharing System Software
 - [] unlock locked documents
 - [] process complaints about ou’s
 - [] have all privileges reserved for ou’s inside any group
+
+
 #### Ordinary User
 - [] Create New documents- They own the documents they create.
 - [] Invite other ou’s to update documents they own.
-<hr />
 ##### Decide whether the document is:
 - [] open to the public (can be seen by everyone)
 - [] restricted (can only be viewed as read-only by gu’s and edited by ou’s)
