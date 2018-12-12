@@ -221,5 +221,4 @@ app.post('/promoteAndDemote', function(req, res) {
 			});
 		}
 	});
-
 });
