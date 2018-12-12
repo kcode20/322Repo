@@ -155,6 +155,15 @@ CREATE TABLE invitations(
 LOCK TABLES invitations WRITE;
 UNLOCK TABLES;
 
+DROP TABLE IF EXISTS taboosuggest;
+
+CREATE TABLE taboosuggest(
+  word VARCHAR(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+LOCK TABLES taboosuggest WRITE;
+UNLOCK TABLES;
+
 -- Populate database
 INSERT INTO taboo(tabooWord)
 VALUES ("fuck"),
@@ -171,8 +180,7 @@ VALUES ("Connie", "connie@gmail.com", "people123", "G"),
   ("Chantelle", "chantelle@gmail.com", "people123", "G");
 
 
-INSERT INTO documents(owner, title, content, created_at, modified_at, locked)
+ INSERT INTO documents(owner, title, content, created_at, modified_at, locked)
 VALUES('1', 'My First Document', 'This is my first document. I love to write!', DATE '2018-08-15', DATE '2018-10-15', 'locked'),
   ('2', 'My Fab Document', 'This is my fabulous document. I like to write!', DATE '2018-11-15', DATE '2018-12-01', 'locked'),
   ('1', 'My 2nd Document', 'This is my 2nd document. I hate to write!', DATE '2018-12-02', DATE '2018-12-10', 'locked');
-
