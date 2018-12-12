@@ -18,7 +18,7 @@ Document Sharing System Software
 - [ ] have all privileges reserved for ou’s inside any group
 
 #### Ordinary User
-- [ ] Create New documents- They own the documents they create.
+- [x] Create New documents- They own the documents they create.
 - [ ] Invite other ou’s to update documents they own.
 
 #### Decide whether the document is:
@@ -33,8 +33,8 @@ which ou is updating the document)
 - [ ] update a successfully locked document & assign a unique version sequence number & remember who made the
 update & when the update was made
 - [ ] unlock a shared document locked by him/herself
-- [ ] file complaint to the owner of a document about another ou’s update
-- [ ] file complaint to the a SuperUser about the owner of the documents
+- [x] file complaint to the owner of a document about another ou’s update
+- [x] file complaint to the a SuperUser about the owner of the documents
 - [ ] if they own a document, they should deal with complaints filed by other ou’s
 - [ ] remove ou’s who were invited before.
 - [ ] unlock locked documents that s/he owns that is being updated by others (unlock documents locked by others as
@@ -47,8 +47,8 @@ long as you are the owner)
 - [ ] read open documents
 - [ ] retrieve old versions of open documents
 - [ ] retrieve complaints about old versions of documents
-- [ ] send suggestions to Super Users about taboo words.
-- [ ] apply to be an ordinary user, that will be confirmed or rejected by su (in application, name and technical interests
+- [x] send suggestions to Super Users about taboo words.
+- [x] apply to be an ordinary user, that will be confirmed or rejected by su (in application, name and technical interests
 are submitted)
 
 ### How to Contribute
