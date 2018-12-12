@@ -35,7 +35,7 @@ const AppRouter = () => (
 			<Route path="/OUApplication" component={OUApplication} />
 			<Route path="/processcomplain" component={ProcessComplain} />
 			<Route path="/document/:id" component={Document} />
-			<Route path="/documents" component={DocumentCollection} />
+			<Route path="/:id/documents" component={DocumentCollection} />
 		</div>
 	</Router>
 );

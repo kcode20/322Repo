@@ -188,7 +188,7 @@ VALUES ("fuck"),
   ("dumbass"), ("asshole"), ("goddamit");
 
 INSERT INTO users(username, email, password, type)
-VALUES ("Connie", "connie@gmail.com", "people123", "G"),
+VALUES ("Connie", "connie@gmail.com", "people123", "SU"),
   ("Khristian", "khristian@gmail.com", "people123", "G"),
   ("Song", "song@gmail.com", "people123", "G"),
   ("Chantelle", "chantelle@gmail.com", "people123", "G");
