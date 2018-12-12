@@ -12,7 +12,7 @@ app.use(cors());
 var connection = mysql.createConnection({
 	host: 'localhost',
 	user: 'root',
-	password: 'yourDatabasePassword',
+	password: 'Noosa11',
 	database: 'onedoc',
 });
 
@@ -62,7 +62,7 @@ app.post('/login', function(req, res) {
 			signedInUser.userID = results[0].id;
 			signedInUser.userName = results[0].username;
 			signedInUser.loggedIn = true;
-			res.sendStatus(200);
+			res.send(results);
 		} else {
 			console.log('The username or password is incorrect. Try again.');
 			res.redirect('/signin');
