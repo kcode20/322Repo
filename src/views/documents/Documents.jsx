@@ -63,7 +63,7 @@ class Documents extends React.Component {
 										<CardBody>
 											<CardTitle>{doc.title}</CardTitle>
 											<Link to={link}>
-												<Button onClick={this.onClick}>View</Button>
+												<Button>View</Button>
 											</Link>
 										</CardBody>
 									</Card>
