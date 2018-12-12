@@ -81,8 +81,9 @@ CREATE TABLE complaints (
   id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   docID int(11) NOT NULL,
   author int(11) NOT NULL,
-  issue varchar(60) NOT NULL,
+  issue varchar(1000) NOT NULL,
   created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  type ENUM("ComplainAboutOwner", "ComplainAboutOU"),
   resolved tinyint(1) NOT NULL,
   KEY author (author),
   KEY docID (docID),
@@ -101,7 +102,7 @@ CREATE TABLE revisions (
   docID int(11) NOT NULL,
   author int(11) NOT NULL,
   type tinytext NOT NULL,
-  revised blob NOT NULL,
+  revised text NOT NULL,
   created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   accept tinyint(1) DEFAULT NULL,
   KEY author (author),
@@ -112,15 +113,6 @@ CREATE TABLE revisions (
 
 LOCK TABLES revisions WRITE;
 UNLOCK TABLES;
---
-
-DROP TABLE IF EXISTS `Taboo`;
-
-CREATE TABLE `Taboo` (
-  `tabooID` int(11) NOT NULL AUTO_INCREMENT,
-  `Bad_Words` tinytext NOT NULL,
-  PRIMARY KEY (`tabooID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 DROP TABLE IF EXISTS taboo;
@@ -146,12 +138,18 @@ LOCK TABLES invitations WRITE;
 UNLOCK TABLES;
 
 -- Populate database
-INSERT INTO users(username, email, password) VALUES 
+
+INSERT INTO users(username, email, password) VALUES
   ("Connie", "connie@gmail.com", "people123"),
   ("Khristian", "khristian@gmail.com", "people123"),
   ("Song", "song@gmail.com", "people123"),
   ("Chantelle", "chantelle@gmail.com", "people123");
-INSERT INTO `Taboo` VALUES (1,'ass'),(2,'asshole'),(3,'bastard'),(4,'crap'),(5,'Christ on a bike'),(6,'Christ on a cracker'),(7,'damn'),(8,'goddamn'),(9,'goddamnit'),(10,'hell'),(11,'shit'),(12,'holyshit'),(13,'Jesus Christ'),(14,'Jesus'),(15,'shit'),(16,'whore'),(17,'stupid'),(18,'millenials'),(19,'dummy'),(20,'Bloody Hell'),(21,'Rubbish');
-INSERT INTO documents(owner, title, content) VALUES('1', 'My First Document', 'This is my first document. I love to write!');
-INSERT INTO documents(owner, title, content) VALUES('1', 'My Second Document', 'This is my second document. I like to write!');
-INSERT INTO documents(owner, title, content) VALUES('1', 'My Third Document', 'This is my third document. I hate to write!');
+INSERT INTO taboo VALUES (1,'ass'),(2,'asshole'),(3,'bastard'),(4,'crap'),(5,'retard'),(6,'fuck'),(7,'damn'),(8,'goddamn'),(9,'goddamnit'),(10,'hell'),(11,'shit'),(12,'holyshit'),(13,'Jesus Christ'),(14,'Jesus'),(15,'shit'),(16,'whore'),(17,'stupid'),(18,'millenials'),(19,'dummy'),(20,'Bloody Hell'),(21,'Rubbish');
+INSERT INTO documents(owner, title, content, created_at, modified_at, locked)
+VALUES('1', 'My First Document', 'This is my first document. I love to write!', DATE '2018-08-15', DATE '2018-10-15', 'locked'),
+  ('2', 'My Fab Document', 'This is my fabulous document. I like to write!', DATE '2018-11-15', DATE '2018-12-01', 'locked'),
+  ('1', 'My 2nd Document', 'This is my 2nd document. I hate to write!', DATE '2018-12-02', DATE '2018-12-10', 'locked');
+
+-- INSERT INTO complaints
+-- VALUES (1,1,2,'Khristian is messing up flow yo! WTF',DATE '2018-08-15',0),
+--   (2,3,1,'I lost my write permission. Give it back! ',DATE '2018-08-15',1);
