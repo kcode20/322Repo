@@ -5,6 +5,7 @@ class OUApplication extends Component{
         super();
         this.state = {
             username: "",
+            technicalInterest: ""
         };
     }
     handleChange = (event) => {
@@ -19,6 +20,7 @@ class OUApplication extends Component{
         console.log(this.state);
         this.setState({
             username: "",
+            technicalInterest: '',
         });
     }
 
@@ -31,6 +33,8 @@ class OUApplication extends Component{
                 <form className="FormCenter">
                     <input type="text" name="username" className="FormField_Input" placeholder="User Name"
                            value = {this.state.username} onChange = {e => this.handleChange(e)}/>
+                    <textarea name="technicalInterest" className="FormField_Input_Complain" placeholder="Technical Interest" rows="4" cols="50"
+                           value = {this.state.technicalInterest} onChange = {e => this.handleChange(e)}/>
                 </form>
                 <div className = "User_Submit">
                     <button onClick={e => this.handleSubmit(e)}>Submit</button>
