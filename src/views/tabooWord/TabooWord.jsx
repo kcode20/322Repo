@@ -4,6 +4,7 @@ class TabooWord extends Component{
     constructor(){
         super();
         this.state = {
+            //word: [],
             word: ["Hi", "Bye", "Hello "],
             inputValue: "",
         };
