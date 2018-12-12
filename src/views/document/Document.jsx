@@ -2,6 +2,7 @@ import React from 'react';
 import { Editor, EditorState, RichUtils, ContentState } from 'draft-js';
 import { Button, ButtonGroup, Container, Row, Col } from 'reactstrap';
 import { TiLockOpen, TiLockClosed } from 'react-icons/ti';
+import Complain from '../complaints/complain'
 import './Document.css';
 
 class Document extends React.Component {
@@ -11,6 +12,7 @@ class Document extends React.Component {
 			editorState: EditorState.createEmpty(),
 			title: 'Untitled',
 			locked: false,
+			toggle: false,
 		};
 		this.onChange = editorState => this.setState({ editorState });
 	}
@@ -86,6 +88,13 @@ class Document extends React.Component {
 			});
 	};
 
+	toggleComplaint = () => {
+		this.setState({
+			toggle: !this.state.toggle,
+		});
+	}
+
+
 	toggleLock = () => {
 		const { id } = this.props.match.params;
 		const data = {
@@ -140,6 +149,9 @@ class Document extends React.Component {
 							<Button color="primary" size="sm" onClick={this.onSubmit}>
 								Save
 							</Button>
+							<Button onClick= {this.toggleComplaint} color="primary" size="sm">
+								File Complain
+							</Button>
 							<Button color="primary" size="sm" onClick={this.toggleLock}>
 								{this.state.locked === 'locked' ? (
 									<TiLockClosed />
@@ -147,6 +159,7 @@ class Document extends React.Component {
 									<TiLockOpen />
 								)}
 							</Button>
+							{this.state.toggle && <Complain docID={this.props.match.params}/>}
 							<div className="editor">
 								<Editor
 									editorState={this.state.editorState}
