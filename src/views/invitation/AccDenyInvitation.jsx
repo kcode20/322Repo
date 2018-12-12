@@ -9,19 +9,45 @@ class Invitation extends Component{
         };
     }
 
+    deleteNotifHandler = (index) => {
+        const DocID = [...this.state.DocID];
+        DocID.splice( index, 1 );
+        this.setState( { DocID: DocID } );
+        console.log(this.state);
+    }
+
+    acceptNotifHandler = (index) => {
+        const DocID = [...this.state.DocID];
+        DocID.splice( index, 1 );
+        this.setState( { DocID: DocID } );
+        console.log(this.state);
+    }
+
+
     render(){
-        let array = [];
-        for(let i = 0; i < this.state.DocID.length; i++){
-            array.push(
-                <tr>
-                    <td>{this.state.DocID[i]}</td>
-                    <button>Accept</button>
-                    <button>Decline</button>
-                </tr>
-            );
-        }
+        let array;
+        array = (
+            <div>
+                {this.state.DocID.map(( docid, index ) => {
+                    return (
+                        <div>
+                            <td>{this.state.DocID[index]}</td>
+                            <button onClick={() => this.acceptNotifHandler(index)}>Accept</button>
+                            <button onClick={() => this.deleteNotifHandler(index)}>Decline</button>
+                        </div>
+                    )
+
+                    
+                })}
+            </div>
+        )
         return(
             <div className = "InvitationForm">
+                {/* {this.state.persons.map(( docid, index ) => {
+                    <td>{this.state.DocID[i]}</td>
+                    <button>Accept</button>
+                    <button onClick={(event) => this.deletePersonHandler(index)}>Decline</button>
+                })} */}
                 {array}
             </div>
         );
