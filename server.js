@@ -12,7 +12,7 @@ app.use(cors());
 var connection = mysql.createConnection({
 	host: 'localhost',
 	user: 'root',
-	password: 'Noosa11',
+	password: 'yourDataBasePassword',
 	database: 'onedoc',
 });
 
@@ -190,7 +190,7 @@ app.post('/taboosuggest', function(req, res){
 		if(err) throw err;
 	});
 	res.sendStatus(200);
-
+});
 // app.post('/promote', function(req, res) {
 // 	const { type, id } = req.body;
 // 	const q = `UPDATE users SET type='${type}' WHERE id='${id}'`;
