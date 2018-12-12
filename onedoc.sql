@@ -23,7 +23,7 @@ CREATE TABLE documents (
   docID int(11) NOT NULL AUTO_INCREMENT,
   owner int(11) NOT NULL,
   title varchar(45) NOT NULL,
-  content blob,
+  content text,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   modified_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   locked ENUM('locked', 'unlocked') NOT NULL DEFAULT 'locked',
