@@ -7,6 +7,8 @@ import SignUpForm from './views/signupin/pages/SignUpForm';
 import Document from './views/document/Document';
 import Complain from './views/complaints/complain';
 import DocumentCollection from './views/documents/Documents';
+import TabooWord from './views/tabooWord/TabooWord'
+import OUApplication from './views/applications/OUApplication'
 
 const About = () => <h2>About</h2>;
 // const Users = () => <h2>Users</h2>; // Added users page
@@ -20,6 +22,8 @@ const AppRouter = () => (
 			<Route path="/signup" component={SignUpForm} />
 			<Route path="/signin" component={SignInForm} />
 			<Route path="/complain" component={Complain} />
+			<Route path="/tabooword" component={TabooWord} />
+			<Route path="/OUApplication" component={OUApplication} />
 			<Route path="/document/:id" component={Document} />
 			<Route path="/documents" component={DocumentCollection} />
 		</div>

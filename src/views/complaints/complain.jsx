@@ -6,11 +6,8 @@ class Complain extends Component{
         super();
         this.state = {
             toggleComplainTo: 1, // 1 - Toggle complain to SU, -1 - to owner
-            firstName: "",
-            lastName: "",
-            email: "",
+            userName: "",
             note: "",
-            DocID: "",
         }
     }
 
@@ -30,11 +27,8 @@ class Complain extends Component{
         console.log(this.state);
         this.setState({
             toggleComplainTo: 1, // 1 - Toggle complain to SU, -1 - to owner
-            firstName: "",
-            lastName: "",
-            email: "",
+            userName: "",
             note: "",
-            DocID: "",
         });
     }
 
@@ -54,12 +48,8 @@ class Complain extends Component{
                     }
                 </div>
                 <form className="FormCenter">
-                    <input type="text" name="firstName" className="FormField_Input" placeholder="First Name"
-                           value = {this.state.firstName} onChange = {e => this.handleChange(e)}/>
-                    <input type="text" name="lastName" className="FormField_Input" placeholder="Last Name"
-                           value = {this.state.lastName} onChange = {e => this.handleChange(e)}/>
-                    <input type="text" name="email" className="FormField_Input" placeholder="Email"
-                           value = {this.state.email} onChange = {e => this.handleChange(e)}/>
+                    <input type="text" name="userName" className="FormField_Input" placeholder="First Name"
+                           value = {this.state.userName} onChange = {e => this.handleChange(e)}/>
                     <textarea name="note" className="FormField_Input_Complain" placeholder="Complain" rows="4" cols="50"
                            value = {this.state.note} onChange = {e => this.handleChange(e)}/>
                     {/* <input type="text" name="DocID" className="FormField_Input" placeholder="Document ID"

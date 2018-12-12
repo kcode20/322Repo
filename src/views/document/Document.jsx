@@ -1,6 +1,7 @@
 import React from 'react';
 import { Editor, EditorState, RichUtils, ContentState } from 'draft-js';
 import { Button, ButtonGroup, Container, Row, Col } from 'reactstrap';
+import { TiLockOpen, TiLockClosed } from 'react-icons/ti';
 import './Document.css';
 
 class Document extends React.Component {
@@ -9,6 +10,7 @@ class Document extends React.Component {
 		this.state = {
 			editorState: EditorState.createEmpty(),
 			title: 'Untitled',
+			locked: false,
 		};
 		this.onChange = editorState => this.setState({ editorState });
 	}
@@ -29,6 +31,7 @@ class Document extends React.Component {
 						ContentState.createFromText(draft.content)
 					),
 					title: draft.title,
+					locked: draft.locked,
 				});
 			})
 			.catch(function(err) {
@@ -58,7 +61,7 @@ class Document extends React.Component {
 			title: this.state.title,
 			content: content.getPlainText(),
 			owner: 1,
-			locked: 0,
+			locked: 'unlocked',
 		};
 		fetch('http://localhost:8080/document', {
 			method: 'POST',
@@ -77,6 +80,40 @@ class Document extends React.Component {
 				if (response.status === 200) {
 					alert('Your document has been saved!');
 				}
+			})
+			.catch(function(err) {
+				console.log(err);
+			});
+	};
+
+	toggleLock = () => {
+		const { id } = this.props.match.params;
+		const data = {
+			docID: id,
+			locked: this.state.locked === 'locked' ? 'unlocked' : 'locked',
+		};
+		fetch('http://localhost:8080/toggleLock', {
+			method: 'POST',
+			mode: 'cors',
+			headers: {
+				'Content-Type': 'application/json',
+				Accept: 'application/json',
+				'Access-Control-Allow-Origin': '*',
+			},
+			body: JSON.stringify(data),
+		})
+			.then(response => {
+				if (response.status >= 400) {
+					throw new Error('Bad response from server');
+				}
+				if (response.status === 200) {
+					return response.json();
+				}
+			})
+			.then(data => {
+				const lockedValue = data[0].locked;
+				this.setState({ locked: lockedValue });
+				alert(`Your document has been ${lockedValue}!`);
 			})
 			.catch(function(err) {
 				console.log(err);
@@ -102,6 +139,13 @@ class Document extends React.Component {
 							</ButtonGroup>
 							<Button color="primary" size="sm" onClick={this.onSubmit}>
 								Save
+							</Button>
+							<Button color="primary" size="sm" onClick={this.toggleLock}>
+								{this.state.locked === 'locked' ? (
+									<TiLockClosed />
+								) : (
+									<TiLockOpen />
+								)}
 							</Button>
 							<div className="editor">
 								<Editor
