@@ -26,7 +26,7 @@ CREATE TABLE documents (
   content text,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
   modified_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  locked tinyint(1) NOT NULL DEFAULT '0',
+  locked ENUM('locked', 'unlocked') NOT NULL,
   PRIMARY KEY (docID),
   KEY owner (owner),
   FOREIGN KEY (owner) REFERENCES users (id)
