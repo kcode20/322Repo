@@ -12,7 +12,7 @@ app.use(cors());
 var connection = mysql.createConnection({
 	host: 'localhost',
 	user: 'root',
-	password: 'yourDataBasePassword',
+	password: 'Noosa11',
 	database: 'onedoc',
 });
 
@@ -99,6 +99,19 @@ app.get('/documents', function(req, res) {
 	});
 });
 
+app.get('/tabooword', function(req, res){
+	const q = `SELECT tabooWord FROM taboo`;
+	console.log(q);
+	connection.query(q, function(err, results){
+		if(err) throw err;
+		console.log(results);
+		if(results){
+			console.log(results);
+			res.send(results);
+		}
+	});
+});
+
 app.get('/document/:id', function(req, res) {
 	const { id } = req.params;
 	const q = `SELECT * FROM documents WHERE docId='${id}'`;
@@ -108,6 +121,38 @@ app.get('/document/:id', function(req, res) {
 			res.send(results);
 		}
 	});
+});
+
+app.post('/complain', function(req, res){
+	const {type, username, note, docID, docName} = req.body;
+	console.log("username: ", username);
+	let t = '';
+	if(type === 1){
+		t = 'ComplainAboutOwner';
+	}
+	else{
+		t = 'ComplainAboutOU';
+	}
+	console.log("type: ", t);
+	// const q = `INSERT INTO complaints(type, issue, docID, author) VALUES ( '${t}' , '${note}', '${docID}' )`;
+	// const q = "INSERT INTO complaints(type, issue, docID, author) VALUES ( '"+ t +"' , '"+ note +"', '"+ docID + "', SELECT id FROM users WHERE username = '"+ username + "' )";
+	const q = `SELECT id FROM users WHERE username = '${username}'`;
+	let id;
+	connection.query(q, function(err, results){
+		if(err) throw err;
+		id = results[0].id;
+		r = `INSERT INTO complaints(type, issue, docID, author) VALUES ( '${t}' , '${note}', '${docID}', ${id})`;
+		connection.query(r, function(err, results){
+			if(err) throw err;
+		});
+	});
+	console.log(q);
+	connection.query(q, function(err, results){
+		if(err) throw err;
+	});
+	// q = `SELECT owner FROM documents JOIN users ON users.id = documents.owner WHERE users.username = '${userName}'`;
+
+	res.sendStatus(200);
 });
 
 app.post('/toggleLock', function(req, res) {
@@ -136,21 +181,31 @@ app.get('/users', function(req, res) {
 	});
 });
 
-app.post('/promote', function(req, res) {
-	const { type, id } = req.body;
-	const q = `UPDATE users SET type='${type}' WHERE id='${id}'`;
-	const r = `SELECT * FROM users WHERE id='${id}'`;
 
-	connection.query(q, function(err, results) {
-		if (err) throw err;
-		if (results) {
-			connection.query(r, function(err, results) {
-				if (err) throw err;
-				if (results) res.send(results);
-			});
-		}
+app.post('/taboosuggest', function(req, res){
+	const {tabooWord} = req.body;
+	const q = `INSERT INTO taboosuggest(word) VALUES('${tabooWord}')`;
+
+	connection.query(q, function(err, results){
+		if(err) throw err;
 	});
-});
+	res.sendStatus(200);
+
+// app.post('/promote', function(req, res) {
+// 	const { type, id } = req.body;
+// 	const q = `UPDATE users SET type='${type}' WHERE id='${id}'`;
+// 	const r = `SELECT * FROM users WHERE id='${id}'`;
+//
+// 	connection.query(q, function(err, results) {
+// 		if (err) throw err;
+// 		if (results) {
+// 			connection.query(r, function(err, results) {
+// 				if (err) throw err;
+// 				if (results) res.send(results);
+// 			});
+// 		}
+// 	});
+// });
 
 app.post('/promoteAndDemote', function(req, res) {
 	const { type, id } = req.body;
@@ -166,4 +221,5 @@ app.post('/promoteAndDemote', function(req, res) {
 			});
 		}
 	});
+
 });

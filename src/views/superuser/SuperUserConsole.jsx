@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './SuperUserConsole.css';
 import Memberships from '../../components/memberships/Memberships';
 import Documents from '../../components/documents/Documents';
+import TabooWords from '../tabooWord/TabooWord';
 
 class SuperUserConsole extends Component {
 	render() {
@@ -9,7 +10,9 @@ class SuperUserConsole extends Component {
 			<div className="SuperUserConsole">
 				<Memberships />
 				<Documents />
+				<TabooWords />
 			</div>
+
 		);
 	}
 }
