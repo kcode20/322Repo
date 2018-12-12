@@ -17,16 +17,18 @@ Document Sharing System Software
 - [] process complaints about ou’s
 - [] have all privileges reserved for ou’s inside any group
 
-
 #### Ordinary User
 - [] Create New documents- They own the documents they create.
 - [] Invite other ou’s to update documents they own.
+
+<hr />
 ##### Decide whether the document is:
 - [] open to the public (can be seen by everyone)
 - [] restricted (can only be viewed as read-only by gu’s and edited by ou’s)
 - [] shared (viewed/ edited by ou’s who are invited)
 - [] private
 <hr />
+
 - [] accept/deny invitation(s) placed by other ou’s for their specific documents
 - [] lock a shared document for updating (only one ou can lock a document successfully and system should indicate
 which ou is updating the document)
@@ -42,6 +44,7 @@ long as you are the owner)
 - [] search own files based on keyword
 - [] search information about other ou’s based on name and/or interests.
 - [] have all privileges for gu’s
+
 #### Guest User
 - [] read open documents
 - [] retrieve old versions of open documents
