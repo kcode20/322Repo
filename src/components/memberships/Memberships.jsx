@@ -39,6 +39,9 @@ class Memberships extends Component {
 		if (type === 'SU') return 'Super User';
 		if (type === 'OU') return 'Ordinary User';
 	};
+
+	promoteUser = (id, type) => {};
+
 	render() {
 		console.log(this.state.users);
 		return (
@@ -65,12 +68,20 @@ class Memberships extends Component {
 									<td>{user.email}</td>
 									<td>{type}</td>
 									<td>
-										<Button color="primary" size="sm">
+										<Button
+											color="primary"
+											size="sm"
+											onClick={() => this.promoteUser(user.id, user.type)}
+										>
 											Promote
 										</Button>
 									</td>
 									<td>
-										<Button color="primary" size="sm">
+										<Button
+											color="primary"
+											size="sm"
+											onClick={() => this.promoteUser(user.id, user.type)}
+										>
 											Demote
 										</Button>
 									</td>
