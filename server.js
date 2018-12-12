@@ -80,7 +80,7 @@ app.listen(8080, function() {
 
 app.post('/document', function(req, res) {
 	const { owner, title, content, locked } = req.body;
-	const q = `INSERT INTO documents(owner, title, content, locked) VALUES ('${owner}', '${title}', '${content}', ${locked})`;
+	const q = `INSERT INTO documents(owner, title, content, locked) VALUES ('${owner}', '${title}', '${content}', '${locked}')`;
 	connection.query(q, function(err, results) {
 		if (err) throw err;
 	});
@@ -104,6 +104,22 @@ app.get('/document/:id', function(req, res) {
 		if (err) throw err;
 		if (results) {
 			res.send(results);
+		}
+	});
+});
+
+app.post('/toggleLock', function(req, res) {
+	const { docID, locked } = req.body;
+	const q = `UPDATE documents SET locked='${locked}' WHERE docID='${docID}'`;
+	const r = `SELECT locked FROM documents where docID='${docID}'`;
+	console.log(q, r);
+	connection.query(q, function(err, results) {
+		if (err) throw err;
+		if (results) {
+			connection.query(r, function(err, results) {
+				if (err) throw err;
+				if (results) res.send(results);
+			});
 		}
 	});
 });
