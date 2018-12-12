@@ -12,7 +12,7 @@ app.use(cors());
 var connection = mysql.createConnection({
 	host: 'localhost',
 	user: 'root',
-	password: 'yourDatabasePassword',
+	password: 'Noosa11',
 	database: 'onedoc',
 });
 
@@ -62,7 +62,7 @@ app.post('/login', function(req, res) {
 			signedInUser.userID = results[0].id;
 			signedInUser.userName = results[0].username;
 			signedInUser.loggedIn = true;
-			res.sendStatus(200);
+			res.send(results);
 		} else {
 			console.log('The username or password is incorrect. Try again.');
 			res.redirect('/signin');
@@ -260,3 +260,16 @@ app.post('/addTaboo', function(req, res) {
 	});
 	res.sendStatus(200);
 });
+
+app.get('/users/:id', function(req, res){
+	const {id} = req.params;
+	q = `SELECT * FROM users WHERE id='${id}'`;
+	console.log(q);
+	connection.query(q, function(err, results) {
+		if (err) throw err;
+		if (results) {
+			console.log(results);
+			res.send(results);
+		}
+	});
+})
