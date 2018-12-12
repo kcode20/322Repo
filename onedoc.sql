@@ -7,9 +7,10 @@ DROP TABLE IF EXISTS users;
 
 CREATE TABLE users (
   id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  username varchar(15) NOT NULL,
-  email varchar(50) NOT NULL,
-  password char(60) NOT NULL
+  username varchar(15) NOT NULL UNIQUE,
+  email varchar(50) NOT NULL UNIQUE,
+  password char(60) NOT NULL,
+  type ENUM('G', 'OU', 'SU') NOT NULL DEFAULT 'G'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 LOCK TABLES users WRITE;
@@ -22,10 +23,10 @@ CREATE TABLE documents (
   docID int(11) NOT NULL AUTO_INCREMENT,
   owner int(11) NOT NULL,
   title varchar(45) NOT NULL,
-  content text,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
-  modified_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  locked ENUM('locked', 'unlocked') NOT NULL,
+  content blob,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  modified_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  locked ENUM('locked', 'unlocked') NOT NULL DEFAULT 'locked',
   PRIMARY KEY (docID),
   KEY owner (owner),
   FOREIGN KEY (owner) REFERENCES users (id)
@@ -41,7 +42,7 @@ CREATE TABLE permissions (
   classID int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   class tinytext NOT NULL,
   wrt bit(1) NOT NULL,
-  R bit(1) NOT NULL,
+  R BOOLEAN NOT NULL,
   complain bit(1) NOT NULL,
   new bit(1) NOT NULL,
   share bit(1) NOT NULL,
@@ -82,7 +83,7 @@ CREATE TABLE complaints (
   author int(11) NOT NULL,
   issue varchar(60) NOT NULL,
   created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  resolved bit(1) NOT NULL,
+  resolved tinyint(1) NOT NULL,
   KEY author (author),
   KEY docID (docID),
   FOREIGN KEY (author) REFERENCES collaborators (userID),
@@ -102,7 +103,7 @@ CREATE TABLE revisions (
   type tinytext NOT NULL,
   revised blob NOT NULL,
   created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  accept bit(1) DEFAULT NULL,
+  accept tinyint(1) DEFAULT NULL,
   KEY author (author),
   KEY docID (docID),
   FOREIGN KEY (author) REFERENCES collaborators (userID),
@@ -111,13 +112,46 @@ CREATE TABLE revisions (
 
 LOCK TABLES revisions WRITE;
 UNLOCK TABLES;
+--
 
+DROP TABLE IF EXISTS `Taboo`;
 
--- Populate
-INSERT INTO users(username, email, password)
-VALUES ("Connie", "connie@gmail.com", "people123"),
-  ("Friend", "friend@gmail.com", "people123");
+CREATE TABLE `Taboo` (
+  `tabooID` int(11) NOT NULL AUTO_INCREMENT,
+  `Bad_Words` tinytext NOT NULL,
+  PRIMARY KEY (`tabooID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO documents(owner, title, content, locked) VALUES('1', 'My First Document', 'This is my first document. I love to write!', 'unlocked');
-INSERT INTO documents(owner, title, content, locked) VALUES('1', 'My Second Document', 'This is my second document. I like to write!', 'unlocked');
-INSERT INTO documents(owner, title, content, locked) VALUES('1', 'My Third Document', 'This is my third document. I hate to write!', 'unlocked');
+--
+DROP TABLE IF EXISTS taboo;
+
+CREATE TABLE taboo(
+  tabooId INT PRIMARY KEY AUTO_INCREMENT,
+  tabooWord VARCHAR(255)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+LOCK TABLES taboo WRITE;
+UNLOCK TABLES;
+
+DROP TABLE IF EXISTS invitations;
+
+CREATE TABLE invitations(
+  inviteID int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  sender VARCHAR(255),
+  docID int(11) DEFAULT NULL,
+  receiver VARCHAR(255)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+LOCK TABLES invitations WRITE;
+UNLOCK TABLES;
+
+-- Populate database
+INSERT INTO users(username, email, password) VALUES 
+  ("Connie", "connie@gmail.com", "people123"),
+  ("Khristian", "khristian@gmail.com", "people123"),
+  ("Song", "song@gmail.com", "people123"),
+  ("Chantelle", "chantelle@gmail.com", "people123");
+INSERT INTO `Taboo` VALUES (1,'ass'),(2,'asshole'),(3,'bastard'),(4,'crap'),(5,'Christ on a bike'),(6,'Christ on a cracker'),(7,'damn'),(8,'goddamn'),(9,'goddamnit'),(10,'hell'),(11,'shit'),(12,'holyshit'),(13,'Jesus Christ'),(14,'Jesus'),(15,'shit'),(16,'whore'),(17,'stupid'),(18,'millenials'),(19,'dummy'),(20,'Bloody Hell'),(21,'Rubbish');
+INSERT INTO documents(owner, title, content) VALUES('1', 'My First Document', 'This is my first document. I love to write!');
+INSERT INTO documents(owner, title, content) VALUES('1', 'My Second Document', 'This is my second document. I like to write!');
+INSERT INTO documents(owner, title, content) VALUES('1', 'My Third Document', 'This is my third document. I hate to write!');

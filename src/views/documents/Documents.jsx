@@ -11,6 +11,7 @@ import {
 import { Link, withRouter } from 'react-router-dom';
 import { TiPlus } from 'react-icons/ti';
 import './Documents.css';
+import SuperUserConsole from '../superuser/SuperUserConsole';
 
 class Documents extends React.Component {
 	constructor(props) {
@@ -80,6 +81,7 @@ class Documents extends React.Component {
 	};
 
 	render() {
+		const isSuperUser = true;
 		return (
 			<div className="documents">
 				<Container>
@@ -103,7 +105,7 @@ class Documents extends React.Component {
 										<CardBody>
 											<CardTitle>{doc.title}</CardTitle>
 											<Link to={link}>
-												<Button onClick={this.onClick}>View</Button>
+												<Button>View</Button>
 											</Link>
 										</CardBody>
 									</Card>
@@ -111,6 +113,7 @@ class Documents extends React.Component {
 							);
 						})}
 					</Row>
+					{isSuperUser && <SuperUserConsole />}
 				</Container>
 			</div>
 		);
