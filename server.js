@@ -135,3 +135,35 @@ app.get('/users', function(req, res) {
 		}
 	});
 });
+
+app.post('/promote', function(req, res) {
+	const { type, id } = req.body;
+	const q = `UPDATE users SET type='${type}' WHERE id='${id}'`;
+	const r = `SELECT * FROM users WHERE id='${id}'`;
+
+	connection.query(q, function(err, results) {
+		if (err) throw err;
+		if (results) {
+			connection.query(r, function(err, results) {
+				if (err) throw err;
+				if (results) res.send(results);
+			});
+		}
+	});
+});
+
+app.post('/promoteAndDemote', function(req, res) {
+	const { type, id } = req.body;
+	const q = `UPDATE users SET type='${type}' WHERE id='${id}'`;
+	const r = `SELECT * FROM users WHERE id='${id}'`;
+
+	connection.query(q, function(err, results) {
+		if (err) throw err;
+		if (results) {
+			connection.query(r, function(err, results) {
+				if (err) throw err;
+				if (results) res.send(results);
+			});
+		}
+	});
+});
