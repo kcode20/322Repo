@@ -39,6 +39,59 @@ class Memberships extends Component {
 		if (type === 'SU') return 'Super User';
 		if (type === 'OU') return 'Ordinary User';
 	};
+
+	changeUserPermissions = (id, type, action) => {
+		const actionTypePromotion = type === 'G' ? 'OU' : type;
+		const actionTypeDemotion = type === 'OU' ? 'G' : type;
+
+		const data = {
+			id,
+			type: action === 'promote' ? actionTypePromotion : actionTypeDemotion,
+		};
+
+		fetch('http://localhost:8080/promoteAndDemote', {
+			method: 'POST',
+			mode: 'cors',
+			headers: {
+				'Content-Type': 'application/json',
+				Accept: 'application/json',
+				'Access-Control-Allow-Origin': '*',
+			},
+			body: JSON.stringify(data),
+		})
+			.then(response => {
+				if (response.status >= 400) {
+					throw new Error('Bad response from server');
+				}
+				if (response.status === 200) {
+					fetch('http://localhost:8080/users', {
+						method: 'GET',
+						mode: 'cors',
+						headers: {
+							'Content-Type': 'application/json',
+							Accept: 'application/json',
+							'Access-Control-Allow-Origin': '*',
+						},
+					})
+						.then(response => {
+							if (response.status >= 400) {
+								throw new Error('Bad response from server');
+							}
+							return response.json();
+						})
+						.then(data => {
+							this.setState({ users: data });
+						})
+						.catch(function(err) {
+							console.log(err);
+						});
+				}
+			})
+			.catch(function(err) {
+				console.log(err);
+			});
+	};
+
 	render() {
 		console.log(this.state.users);
 		return (
@@ -65,12 +118,28 @@ class Memberships extends Component {
 									<td>{user.email}</td>
 									<td>{type}</td>
 									<td>
-										<Button color="primary" size="sm">
+										<Button
+											color="primary"
+											size="sm"
+											onClick={() =>
+												this.changeUserPermissions(
+													user.id,
+													user.type,
+													'promote'
+												)
+											}
+										>
 											Promote
 										</Button>
 									</td>
 									<td>
-										<Button color="primary" size="sm">
+										<Button
+											color="primary"
+											size="sm"
+											onClick={() =>
+												this.changeUserPermissions(user.id, user.type, 'demote')
+											}
+										>
 											Demote
 										</Button>
 									</td>

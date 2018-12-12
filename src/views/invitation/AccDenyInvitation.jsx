@@ -36,8 +36,6 @@ class Invitation extends Component{
                             <button onClick={() => this.deleteNotifHandler(index)}>Decline</button>
                         </div>
                     )
-
-                    
                 })}
             </div>
         )
