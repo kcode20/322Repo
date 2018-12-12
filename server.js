@@ -12,7 +12,7 @@ app.use(cors());
 var connection = mysql.createConnection({
 	host: 'localhost',
 	user: 'root',
-	password: 'yourDataBasePassword',
+	password: 'SJm4!5nt',
 	database: 'onedoc',
 });
 
@@ -41,10 +41,8 @@ app.post('/signup', function(req, res) {
 app.get('/signin', function(req, res) {
 	if (signedInUser.loggedIn) {
 		// res.sendStatus(200);
-		console.log('Yes signed in!');
 		res.redirect('/document');
 	} else {
-		// console.log("Not signed in!");
 		res.render('SignInForm'); //the homepage of the ejs
 	}
 });
@@ -52,7 +50,6 @@ app.get('/signin', function(req, res) {
 app.post('/login', function(req, res) {
 	let username = req.body.username;
 	let password = req.body.password;
-	console.log(username, password);
 	let q =
 		"SELECT id, username, password FROM users WHERE username = '" +
 		username +
@@ -62,7 +59,6 @@ app.post('/login', function(req, res) {
 	connection.query(q, function(err, results) {
 		if (err) throw err;
 		if (results[0]) {
-			console.log('The username and password are correct!');
 			signedInUser.userID = results[0].id;
 			signedInUser.userName = results[0].username;
 			signedInUser.loggedIn = true;
@@ -81,9 +77,15 @@ app.listen(8080, function() {
 app.post('/document', function(req, res) {
 	const { owner, title, content, locked } = req.body;
 	const q = `INSERT INTO documents(owner, title, content, locked) VALUES ('${owner}', '${title}', '${content}', ${locked})`;
+	const r = `SELECT * FROM documents ORDER BY docID DESC LIMIT 1;`;
 	connection.query(q, function(err, results) {
 		if (err) throw err;
-		if (results) res.send(results);
+		if (results) {
+			connection.query(r, function(err, results) {
+				if (err) throw err;
+				if (results) res.send(results);
+			});
+		}
 	});
 });
 

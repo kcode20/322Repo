@@ -67,9 +67,12 @@ class Documents extends React.Component {
 					throw new Error('Bad response from server');
 				}
 				if (response.status === 200) {
-					console.log(response);
-					//history.push('document/');
+					return response.json();
 				}
+			})
+			.then(data => {
+				const id = data[0].docID;
+				history.push(`document/${id}`);
 			})
 			.catch(function(err) {
 				console.log(err);
