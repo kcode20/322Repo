@@ -40,7 +40,53 @@ class Memberships extends Component {
 		if (type === 'OU') return 'Ordinary User';
 	};
 
-	promoteUser = (id, type) => {};
+	promoteUser = (id, type) => {
+		const data = {
+			id,
+			type: type === 'G' ? 'OU' : type,
+		};
+		fetch('http://localhost:8080/promote', {
+			method: 'POST',
+			mode: 'cors',
+			headers: {
+				'Content-Type': 'application/json',
+				Accept: 'application/json',
+				'Access-Control-Allow-Origin': '*',
+			},
+			body: JSON.stringify(data),
+		})
+			.then(response => {
+				if (response.status >= 400) {
+					throw new Error('Bad response from server');
+				}
+				if (response.status === 200) {
+					fetch('http://localhost:8080/users', {
+						method: 'GET',
+						mode: 'cors',
+						headers: {
+							'Content-Type': 'application/json',
+							Accept: 'application/json',
+							'Access-Control-Allow-Origin': '*',
+						},
+					})
+						.then(response => {
+							if (response.status >= 400) {
+								throw new Error('Bad response from server');
+							}
+							return response.json();
+						})
+						.then(data => {
+							this.setState({ users: data });
+						})
+						.catch(function(err) {
+							console.log(err);
+						});
+				}
+			})
+			.catch(function(err) {
+				console.log(err);
+			});
+	};
 
 	render() {
 		console.log(this.state.users);
