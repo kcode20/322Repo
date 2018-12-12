@@ -12,16 +12,20 @@ import { Link, withRouter } from 'react-router-dom';
 import { TiPlus } from 'react-icons/ti';
 import './Documents.css';
 import SuperUserConsole from '../superuser/SuperUserConsole';
+import { Twitter } from 'react-social-sharing';
 
 class Documents extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			documents: [],
+			user: {}
 		};
 	}
 
 	componentDidMount = () => {
+		const {id} = this.props.match.params;
+		console.log(id);
 		fetch('http://localhost:8080/documents', {
 			method: 'GET',
 			mode: 'cors',
@@ -39,6 +43,26 @@ class Documents extends React.Component {
 			})
 			.then(data => {
 				this.setState({ documents: data });
+				console.log('in the then', id);
+				fetch(`http://localhost:8080/users/${id}`, {
+					method: 'GET',
+					mode: 'cors',
+					headers: {
+						'Content-Type': 'application/json',
+						Accept: 'application/json',
+						'Access-Control-Allow-Origin': '*',
+					},
+				})
+				.then(response => {
+						if (response.status >= 400) {
+							throw new Error('Bad response from server');
+						}
+						return response.json();
+				})
+				.then(data => {
+					console.log(data);
+					this.setState({user: data[0]})
+				})
 			})
 			.catch(function(err) {
 				console.log(err);
@@ -81,7 +105,7 @@ class Documents extends React.Component {
 	};
 
 	render() {
-		const isSuperUser = true;
+		const isSuperUser = this.state.user.type === 'SU';
 		return (
 			<div className="documents">
 				<Container>
@@ -107,6 +131,10 @@ class Documents extends React.Component {
 											<Link to={link}>
 												<Button>View</Button>
 											</Link>
+											<Twitter
+												size="small"
+												link={`https://onedoc.com/document/${doc.docID}`}
+											/>
 										</CardBody>
 									</Card>
 								</Col>

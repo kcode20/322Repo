@@ -62,7 +62,7 @@ app.post('/login', function(req, res) {
 			signedInUser.userID = results[0].id;
 			signedInUser.userName = results[0].username;
 			signedInUser.loggedIn = true;
-			res.sendStatus(200);
+			res.send(results);
 		} else {
 			console.log('The username or password is incorrect. Try again.');
 			res.redirect('/signin');
@@ -99,13 +99,13 @@ app.get('/documents', function(req, res) {
 	});
 });
 
-app.get('/tabooword', function(req, res){
+app.get('/tabooword', function(req, res) {
 	const q = `SELECT tabooWord FROM taboo`;
 	console.log(q);
-	connection.query(q, function(err, results){
-		if(err) throw err;
+	connection.query(q, function(err, results) {
+		if (err) throw err;
 		console.log(results);
-		if(results){
+		if (results) {
 			console.log(results);
 			res.send(results);
 		}
@@ -123,33 +123,32 @@ app.get('/document/:id', function(req, res) {
 	});
 });
 
-app.post('/complain', function(req, res){
-	const {type, username, note, docID, docName} = req.body;
-	console.log("username: ", username);
+app.post('/complain', function(req, res) {
+	const { type, username, note, docID, docName } = req.body;
+	console.log('username: ', username);
 	let t = '';
-	if(type === 1){
+	if (type === 1) {
 		t = 'ComplainAboutOwner';
-	}
-	else{
+	} else {
 		t = 'ComplainAboutOU';
 	}
-	console.log("type: ", t);
+	console.log('type: ', t);
 	// const q = `INSERT INTO complaints(type, issue, docID, author) VALUES ( '${t}' , '${note}', '${docID}' )`;
 	// const q = "INSERT INTO complaints(type, issue, docID, author) VALUES ( '"+ t +"' , '"+ note +"', '"+ docID + "', SELECT id FROM users WHERE username = '"+ username + "' )";
 	const q = `SELECT id FROM users WHERE username = '${username}'`;
 	let id;
-	connection.query(q, function(err, results){
-		if(err) throw err;
+	connection.query(q, function(err, results) {
+		if (err) throw err;
 		id = results[0].id;
-		r = `INSERT INTO complaints(type, issue, docID, author) VALUES ( '${t}' , '${note}', '${docID}', ${id})`;
+		const r = `INSERT INTO complaints(type, issue, docID, author) VALUES ( '${t}' , '${note}', '${docID}', ${id})`;
 		connection.query(r, function(err, results){
 			if(err) throw err;
 		});
 	});
 	console.log(q);
-	connection.query(q, function(err, results){
-		if(err) throw err;
-	});
+	// connection.query(q, function(err, results){
+	// 	if(err) throw err;
+	// });
 	// q = `SELECT owner FROM documents JOIN users ON users.id = documents.owner WHERE users.username = '${userName}'`;
 
 	res.sendStatus(200);
@@ -181,16 +180,16 @@ app.get('/users', function(req, res) {
 	});
 });
 
-
-app.post('/taboosuggest', function(req, res){
-	const {tabooWord} = req.body;
+app.post('/taboosuggest', function(req, res) {
+	const { tabooWord } = req.body;
 	const q = `INSERT INTO taboosuggest(word) VALUES('${tabooWord}')`;
 
-	connection.query(q, function(err, results){
-		if(err) throw err;
+	connection.query(q, function(err, results) {
+		if (err) throw err;
 	});
 	res.sendStatus(200);
 });
+
 // app.post('/promote', function(req, res) {
 // 	const { type, id } = req.body;
 // 	const q = `UPDATE users SET type='${type}' WHERE id='${id}'`;
@@ -223,6 +222,45 @@ app.post('/promoteAndDemote', function(req, res) {
 	});
 });
 
+app.get('/tabooSuggest', function(req, res) {
+	const q = `SELECT * FROM taboosuggest`;
+	connection.query(q, function(err, results) {
+		if (err) throw err;
+		if (results) {
+			console.log(results);
+			res.send(results);
+		}
+	});
+});
+
+app.post('/dissmissTaboo', function(req, res) {
+	const { word } = req.body;
+	const q = `DELETE FROM taboosuggest WHERE word='${word}'`;
+	const r = `SELECT * FROM taboosuggest`;
+	connection.query(q, function(err, results) {
+		if (err) throw err;
+		if (results) {
+			connection.query(r, function(err, results) {
+				if (err) throw err;
+				if (results) {
+					console.log(results);
+					res.send(results);
+				}
+			});
+		}
+	});
+});
+
+app.post('/addTaboo', function(req, res) {
+	const { tabooWord } = req.body;
+	const q = `INSERT INTO taboo(tabooWord) VALUES('${tabooWord}')`;
+
+	connection.query(q, function(err, results) {
+		if (err) throw err;
+	});
+	res.sendStatus(200);
+});
+
 app.get('/docInvitation', function(req, res) {
 	const { sender, docID, receiver } = req.body;
 	const q = `INSERT INTO invitations (sender, docID, receiver) VALUES ((SELECT owner FROM documents WHERE owner = ${sender}), (SELECT docID FROM documents WHERE docID = ${docID}), (SELECT userID FROM users WHERE userID = ${receiver}))`;
@@ -237,3 +275,16 @@ app.get('/docInvitation', function(req, res) {
 		}
 	});
 });
+
+app.get('/users/:id', function(req, res){
+	const {id} = req.params;
+	q = `SELECT * FROM users WHERE id='${id}'`;
+	console.log(q);
+	connection.query(q, function(err, results) {
+		if (err) throw err;
+		if (results) {
+			console.log(results);
+			res.send(results);
+		}
+	});
+})

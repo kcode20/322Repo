@@ -11,7 +11,7 @@ export default class docInvitation extends React.Component{
 
     changeHandler = (event) => {
         this.setState({
-            inputUsername: event.target.value,
+            [event.target.name]: event.target.value,
         });
     }
 
@@ -29,11 +29,13 @@ export default class docInvitation extends React.Component{
     render(){
         return(
             <div className = "form">
-            <input id = "inputUsername" type = "text" placeholder="document ID"
-                   value = {this.state.inputUsername} onChange = {(e) => this.changeHandler(e)}></input>
-            <input id = "inputUsername" type = "text" placeholder="receiver"></input>
-            <input id = "inputUsername" type = "text" placeholder="receiver"></input>
-            <button onClick = {this.handleSubmit}>Submit</button>
+                <input id = "documentID" type = "text" placeholder="document ID" name = "documentID"
+                  value = {this.state.documentID} onChange = {(e) => this.changeHandler(e)}></input>
+                <input id = "inputUsername1" type = "text" placeholder="sender" name = "inputUsername1"
+                  value = {this.state.inputUsername1} onChange = {(e) => this.changeHandler(e)}></input>
+                <input id = "inputUsername2" type = "text" placeholder="receiver" name = "inputUsername2"
+                  value = {this.state.inputUsername2} onChange = {(e) => this.changeHandler(e)}></input>
+                <button onClick = {this.handleSubmit}>Submit</button>
             </div>
         )
     }

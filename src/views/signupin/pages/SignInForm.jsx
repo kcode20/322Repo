@@ -51,15 +51,20 @@ class SignInForm extends Component {
             // history.push('/signin');
   				}
   				if (response.status === 200) {
-  					history.push('/document');
+            return(response.json())
+  					// history.push('/documents');
   				}
   				// return response.json();
   			})
+        .then(function(data){
+          history.push(`/${data[0].id}/documents`)
+          console.log(data);
+        })
   			.catch(function(err) {
   				console.log(err);
   			});
-      console.log('The form was submitted with the following data:');
-      console.log(this.state);
+      // console.log('The form was submitted with the following data:');
+      // console.log(this.state);
     }
     render() {
         return (
