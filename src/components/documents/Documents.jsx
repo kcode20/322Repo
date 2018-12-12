@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Table, Button } from 'reactstrap';
+import { TiLockOpen, TiLockClosed } from 'react-icons/ti';
 
 import './Documents.css';
 
@@ -36,6 +37,42 @@ class Memberships extends Component {
 			});
 	};
 
+	toggleLock = (id, locked) => {
+		const data = {
+			docID: id,
+			locked: locked === 'locked' ? 'unlocked' : 'locked',
+		};
+		fetch('http://localhost:8080/toggleLock', {
+			method: 'POST',
+			mode: 'cors',
+			headers: {
+				'Content-Type': 'application/json',
+				Accept: 'application/json',
+				'Access-Control-Allow-Origin': '*',
+			},
+			body: JSON.stringify(data),
+		})
+			.then(response => {
+				if (response.status >= 400) {
+					throw new Error('Bad response from server');
+				}
+				if (response.status === 200) {
+					return response.json();
+				}
+			})
+			.then(data => {
+				const lockedValue = data[0].locked;
+				let toggledDocs = this.state.documents;
+				toggledDocs[id - 1].locked = lockedValue;
+				this.setState({ documents: toggledDocs });
+
+				alert(`Successfully ${lockedValue} the  document`);
+			})
+			.catch(function(err) {
+				console.log(err);
+			});
+	};
+
 	render() {
 		console.log(this.state.documents);
 		return (
@@ -64,7 +101,19 @@ class Memberships extends Component {
 											</Button>
 										</Link>
 									</td>
-									<td>ToggleLockPlaceholder</td>
+									<td>
+										<Button
+											color="primary"
+											size="sm"
+											onClick={() => this.toggleLock(doc.docID, doc.locked)}
+										>
+											{doc.locked === 'locked' ? (
+												<TiLockClosed />
+											) : (
+												<TiLockOpen />
+											)}
+										</Button>
+									</td>
 								</tr>
 							);
 						})}
