@@ -3,6 +3,7 @@ import { Editor, EditorState, RichUtils, ContentState } from 'draft-js';
 import { Button, ButtonGroup, Container, Row, Col } from 'reactstrap';
 import { TiLockOpen, TiLockClosed } from 'react-icons/ti';
 import Complain from '../complaints/complain';
+import Invite from '../docInvitation/docInvitation'
 import './Document.css';
 
 class Document extends React.Component {
@@ -13,6 +14,7 @@ class Document extends React.Component {
 			title: 'Untitled',
 			locked: false,
 			toggle: false,
+			toggleInv: false,
 		};
 		this.onChange = editorState => this.setState({ editorState });
 	}
@@ -94,6 +96,12 @@ class Document extends React.Component {
 		});
 	};
 
+	toggleInv = () => {
+		this.setState({
+			toggleInv: !this.state.toggleInv,
+		});
+	}
+
 	toggleLock = () => {
 		const { id } = this.props.match.params;
 		const data = {
@@ -158,8 +166,14 @@ class Document extends React.Component {
 									<TiLockOpen />
 								)}
 							</Button>
+							<Button onClick={this.toggleInv} color="primary" size="sm">
+								Invite
+							</Button>
 							{this.state.toggle && (
 								<Complain docID={this.props.match.params} />
+							)}
+							{this.state.toggleInv && (
+								<Invite docID={this.props.match.params} />
 							)}
 							<div className="editor">
 								<Editor
