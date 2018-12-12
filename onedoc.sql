@@ -100,17 +100,32 @@ CREATE TABLE complaints (
   docID int(11) NOT NULL,
   author int(11) NOT NULL,
   issue text NOT NULL,
-  created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   type ENUM("ComplainAboutOwner", "ComplainAboutOU"),
-  resolved bit(1) NOT NULL,
-  KEY author (author),
-  KEY docID (docID),
   FOREIGN KEY (author) REFERENCES collaborators (userID),
   FOREIGN KEY (docID) REFERENCES collaborators (docID)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 LOCK TABLES complaints WRITE;
 UNLOCK TABLES;
+
+-- DROP TABLE IF EXISTS complaints;
+--
+-- CREATE TABLE complaints (
+--   id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+--   docID int(11) NOT NULL,
+--   author int(11) NOT NULL,
+--   issue text NOT NULL,
+--   created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+--   type ENUM("ComplainAboutOwner", "ComplainAboutOU"),
+--   resolved bit(1) NOT NULL,
+--   KEY author (author),
+--   KEY docID (docID),
+--   FOREIGN KEY (author) REFERENCES collaborators (userID),
+--   FOREIGN KEY (docID) REFERENCES collaborators (docID)
+-- ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+--
+-- LOCK TABLES complaints WRITE;
+-- UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS revisions;
