@@ -13,3 +13,8 @@
 .tools {
 	margin: 15px 25px;
 }
+
+#back_button {
+	margin-left: 5px;
+	margin-top: 5px;
+}
