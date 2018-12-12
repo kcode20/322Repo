@@ -36,8 +36,81 @@ class TabooSuggest extends Component {
 			});
 	};
 
-	addTaboo = word => {};
-	dismissTaboo = word => {};
+	addTaboo = word => {
+		const data = { tabooWord: word };
+		fetch('http://localhost:8080/addTaboo', {
+			method: 'POST',
+			mode: 'cors',
+			headers: {
+				'Content-Type': 'application/json',
+				Accept: 'application/json',
+				'Access-Control-Allow-Origin': '*',
+			},
+			body: JSON.stringify(data),
+		})
+			.then(response => {
+				if (response.status >= 400) {
+					throw new Error('Bad response from server');
+				}
+				if (response.status === 200) {
+					const newData = { word };
+					fetch('http://localhost:8080/dissmissTaboo', {
+						method: 'POST',
+						mode: 'cors',
+						headers: {
+							'Content-Type': 'application/json',
+							Accept: 'application/json',
+							'Access-Control-Allow-Origin': '*',
+						},
+						body: JSON.stringify(newData),
+					})
+						.then(response => {
+							if (response.status >= 400) {
+								throw new Error('Bad response from server');
+							}
+							return response.json();
+						})
+						.then(data => {
+							console.log(data);
+							this.setState({ tabooSuggest: data });
+						})
+						.catch(function(err) {
+							console.log(err);
+						});
+					alert('Word has been added to your list of Taboos');
+				}
+			})
+			.catch(function(err) {
+				console.log(err);
+			});
+	};
+
+	dismissTaboo = word => {
+		const data = { word };
+		fetch('http://localhost:8080/dissmissTaboo', {
+			method: 'POST',
+			mode: 'cors',
+			headers: {
+				'Content-Type': 'application/json',
+				Accept: 'application/json',
+				'Access-Control-Allow-Origin': '*',
+			},
+			body: JSON.stringify(data),
+		})
+			.then(response => {
+				if (response.status >= 400) {
+					throw new Error('Bad response from server');
+				}
+				return response.json();
+			})
+			.then(data => {
+				console.log(data);
+				this.setState({ tabooSuggest: data });
+			})
+			.catch(function(err) {
+				console.log(err);
+			});
+	};
 
 	render() {
 		console.log(this.state.tabooSuggest);
@@ -71,7 +144,7 @@ class TabooSuggest extends Component {
 										<Button
 											color="primary"
 											size="sm"
-											onClick={() => this.dissmissTaboo(taboo.word)}
+											onClick={() => this.dismissTaboo(taboo.word)}
 										>
 											Dissmiss
 										</Button>

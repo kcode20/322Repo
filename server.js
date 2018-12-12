@@ -232,3 +232,31 @@ app.get('/tabooSuggest', function(req, res) {
 		}
 	});
 });
+
+app.post('/dissmissTaboo', function(req, res) {
+	const { word } = req.body;
+	const q = `DELETE FROM taboosuggest WHERE word='${word}'`;
+	const r = `SELECT * FROM taboosuggest`;
+	connection.query(q, function(err, results) {
+		if (err) throw err;
+		if (results) {
+			connection.query(r, function(err, results) {
+				if (err) throw err;
+				if (results) {
+					console.log(results);
+					res.send(results);
+				}
+			});
+		}
+	});
+});
+
+app.post('/addTaboo', function(req, res) {
+	const { tabooWord } = req.body;
+	const q = `INSERT INTO taboo(tabooWord) VALUES('${tabooWord}')`;
+
+	connection.query(q, function(err, results) {
+		if (err) throw err;
+	});
+	res.sendStatus(200);
+});
