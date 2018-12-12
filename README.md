@@ -11,11 +11,11 @@ Document Sharing System Software
 
 ### Tasks Checklist
 #### Super User
-- [ ] Update Memberships
-- [ ] Maintain a list of taboo words
-- [ ] unlock locked documents
+- [x] Update Memberships
+- [x] Maintain a list of taboo words
+- [x] unlock locked documents
 - [ ] process complaints about ou’s
-- [ ] have all privileges reserved for ou’s inside any group
+- [x] have all privileges reserved for ou’s inside any group
 
 #### Ordinary User
 - [x] Create New documents- They own the documents they create.
