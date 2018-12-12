@@ -12,7 +12,7 @@ app.use(cors());
 var connection = mysql.createConnection({
 	host: 'localhost',
 	user: 'root',
-	password: 'yourDataBasePassword',
+	password: 'Noosa11',
 	database: 'onedoc',
 });
 
@@ -141,15 +141,15 @@ app.post('/complain', function(req, res){
 	connection.query(q, function(err, results){
 		if(err) throw err;
 		id = results[0].id;
-		r = `INSERT INTO complaints(type, issue, docID, author) VALUES ( '${t}' , '${note}', '${docID}', ${id})`;
+		const r = `INSERT INTO complaints(type, issue, docID, author) VALUES ( '${t}' , '${note}', '${docID}', ${id})`;
 		connection.query(r, function(err, results){
 			if(err) throw err;
 		});
 	});
 	console.log(q);
-	connection.query(q, function(err, results){
-		if(err) throw err;
-	});
+	// connection.query(q, function(err, results){
+	// 	if(err) throw err;
+	// });
 	// q = `SELECT owner FROM documents JOIN users ON users.id = documents.owner WHERE users.username = '${userName}'`;
 
 	res.sendStatus(200);
@@ -191,6 +191,7 @@ app.post('/taboosuggest', function(req, res){
 	});
 	res.sendStatus(200);
 });
+
 // app.post('/promote', function(req, res) {
 // 	const { type, id } = req.body;
 // 	const q = `UPDATE users SET type='${type}' WHERE id='${id}'`;
