@@ -14,8 +14,14 @@ class Document extends React.Component {
 			locked: false,
 			toggle: false,
 		};
+		this.routeChange = this.routeChange.bind(this);
 		this.onChange = editorState => this.setState({ editorState });
 	}
+
+	routeChange = () => {
+	 let path = `http://localhost:3000/invitation`;
+	 this.props.history.push(path);
+ 	};
 
 	componentDidMount = () => {
 		const { id } = this.props.match.params;
@@ -94,6 +100,11 @@ class Document extends React.Component {
 		});
 	}
 
+	toggleComplaint = () => {
+		this.setState({
+			toggle: !this.state.toggle,
+		});
+	}
 
 	toggleLock = () => {
 		const { id } = this.props.match.params;
@@ -148,6 +159,9 @@ class Document extends React.Component {
 							</ButtonGroup>
 							<Button color="primary" size="sm" onClick={this.onSubmit}>
 								Save
+							</Button>
+							<Button color="primary" size="sm" onClick={this.routeChange}>
+								Share
 							</Button>
 							<Button onClick= {this.toggleComplaint} color="primary" size="sm">
 								File Complain
