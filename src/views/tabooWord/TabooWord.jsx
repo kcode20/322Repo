@@ -4,13 +4,14 @@ class TabooWord extends Component{
     constructor(){
         super();
         this.state = {
+            // word: ["Hi", "Bye", "Hello "],
             word: [],
-            suggestion: '',
+            inputValue: "",
         };
     }
 
     componentDidMount = () => {
-      fetch('http://localhost:8080/taboowords', {
+      fetch('http://localhost:8080/tabooword', {
         method: 'GET',
         mode: 'cors',
         headers: {
@@ -34,45 +35,68 @@ class TabooWord extends Component{
         });
     };
 
-    clickHandler = (e) => { //submitHandler...OR handleSubmit
+    clickHandler = (e) => {
         e.preventDefault();
-        console.log("The form is submitted with the following data:");
-        console.log(this.state);
-        // this.setState({
-        //     word: "",
-        // });
+        const data = {
+          tabooWord: this.state.inputValue,
+        };
+        fetch('http://localhost:8080/tabooSuggest', {
+          method: 'POST',
+          mode: 'cors',
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+            'Access-Control-Allow-Origin': '*',
+          },
+          body: JSON.stringify(data),
+        })
+          .then(function(response) {
+            if (response.status >= 400) {
+              throw new Error('Bad response from server');
+            }
+            if (response.status === 200) {
+              alert('Submitted Suggestion to Super User to be approved')
+            }
+          })
+          .catch(function(err) {
+            console.log(err);
+          });
+        this.setState({inputValue: ""});
+
     }
 
-    handleChange = (e) => {
+    handleChange = (event) => {
         this.setState({
-            [e.target.name]: e.target.value
-        });
+            inputValue: event.target.value,
+        })
     }
 
     render(){
-      console.log(this.state.word);
+        let array = (
+            <div>
+                {this.state.word.map(( taboo, key ) => {
+                    return (
+                        <div>
+                            <li key={key}>{taboo.tabooWord}</li>
+                        </div>
+                    )
+                })}
+            </div>
+        )
         return(
             <div>
-                <div>
-                  <ul>
-                    {
-                      this.state.word.map((taboo, key) =>{
-                        return <li key={key}>{taboo.tabooWord}</li>
-                      })
-                    }
-                    </ul>
-                </div>
                 <div className = "TabooDiv">
                     <p>Taboo World Submission Page</p>
+                    {array}
                     <p><i>Please submit one at a time...</i></p>
+
                 </div>
                 <div className="FormCenter">
-
                     <form >
-                        <input type="text" name="word" className="FormField_Input" placeholder="Word"
-                            value = {this.state.suggestion} onChange = {e => this.handleChange(e)}/>
+                        <input type="text" className="FormField_Input" placeholder="Word"
+                            value = {this.state.inputValue} onChange = {this.handleChange}/>
                     </form>
-                    <button onClick = {e => this.clickHandler(e)}>Submit</button>
+                    <button onClick = {this.clickHandler}>Submit</button>
                 </div>
 
             </div>

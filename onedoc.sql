@@ -155,6 +155,15 @@ CREATE TABLE invitations(
 LOCK TABLES invitations WRITE;
 UNLOCK TABLES;
 
+DROP TABLE IF EXISTS taboosuggest;
+
+CREATE TABLE taboosuggest(
+  word VARCHAR(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+LOCK TABLES taboosuggest WRITE;
+UNLOCK TABLES;
+
 -- Populate database
 INSERT INTO taboo(tabooWord)
 VALUES ("fuck"),

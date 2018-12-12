@@ -99,7 +99,7 @@ app.get('/documents', function(req, res) {
 	});
 });
 
-app.get('/taboowords', function(req, res){
+app.get('/tabooword', function(req, res){
 	const q = `SELECT tabooWord FROM taboo`;
 	console.log(q);
 	connection.query(q, function(err, results){
@@ -143,7 +143,7 @@ app.post('/complain', function(req, res){
 		id = results[0].id;
 		r = `INSERT INTO complaints(type, issue, docID, author) VALUES ( '${t}' , '${note}', '${docID}', ${id})`;
 		connection.query(r, function(err, results){
-			if(err) throw err; 
+			if(err) throw err;
 		});
 	});
 	console.log(q);
@@ -179,4 +179,14 @@ app.get('/users', function(req, res) {
 			res.send(results);
 		}
 	});
+});
+
+app.post('/taboosuggest', function(req, res){
+	const {tabooWord} = req.body;
+	const q = `INSERT INTO taboosuggest(word) VALUES('${tabooWord}')`;
+
+	connection.query(q, function(err, results){
+		if(err) throw err;
+	});
+	res.sendStatus(200);
 });
