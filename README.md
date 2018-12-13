@@ -30,3 +30,18 @@ Now, it's time to create a Pull Request! In your browser, go to the repo in Gith
 <img src="/src/img/CreatingPR.png" width="500"/>
 
 This will create a Pull Request with all your changes that can be viewed by other contributors to this repo. Once it has been approved, you can merge this pull request into master.
+
+### Access Specific Pages of the Project
+
+- For guest to apply for OU, the user has to enter localhost:3000/ouapplication
+<img src = "/src/img/" width = "500">
+- For OU/SU to process the complains, the user has to enter localhost:3000/processcomplain
+<img src = "/src/img/" width = "500">
+- For OU to accept the invitation, the user has to enter localhost:3000/accordenyinv
+<img src = "/src/img/" width = "500">
+- For user to search for the files, the user has to enter localhost:3000/searchfiles
+<img src = "/src/img/" width = "500">
+- For user to search about other OU's information, the user has to enter localhost:3000/SearchOU
+<img src = "/src/img/" width = "500">
+- For user to send document invitation, the user has to enter localhost:3000/docInvitation
+<img src = "/src/img/" width = "500">
