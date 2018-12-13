@@ -6,7 +6,7 @@ export default class SearchAboutOU extends Component{
         this.state = {
             name: "",
             interest: "",
-            user: ["Song", "Ren", "Zhao"], //this will be fetched from the database... Dummy data added now...
+            user: ["Connie", "Khristian", "Song", "Chantelle"], //this will be fetched from the database... Dummy data added now...
         }
     }
 
