@@ -31,17 +31,24 @@ Now, it's time to create a Pull Request! In your browser, go to the repo in Gith
 
 This will create a Pull Request with all your changes that can be viewed by other contributors to this repo. Once it has been approved, you can merge this pull request into master.
 
-### Access Specific Pages of the Project
+### To run from cloning:
+Have Node.js/yarn installed on host machine  
+Also have MySQL DBMS installed  
+Or if preferred, customize the config file to use a different DBMS dialect  
+Run the app on a terminal with the following commands in the project directory:  
+&nbsp;&nbsp;&nbsp; $ yarn install  
+&nbsp;&nbsp;&nbsp; $ yarn start
 
-- For guest to apply for OU, the user has to enter localhost:3000/ouapplication
-<img src = "/src/img/" width = "500">
-- For OU/SU to process the complains, the user has to enter localhost:3000/processcomplain
-<img src = "/src/img/" width = "500">
-- For OU to accept the invitation, the user has to enter localhost:3000/accordenyinv
-<img src = "/src/img/" width = "500">
-- For user to search for the files, the user has to enter localhost:3000/searchfiles
-<img src = "/src/img/" width = "500">
-- For user to search about other OU's information, the user has to enter localhost:3000/SearchOU
-<img src = "/src/img/" width = "500">
-- For user to send document invitation, the user has to enter localhost:3000/docInvitation
-<img src = "/src/img/" width = "500">
+Also, have another terminal to run node server.js
+
+Open http://localhost:3000 to view it in the browser.
+
+
+### To access Specific Pages of the Project
+
+- For guest to apply for OU, the user has to enter ```localhost:3000/ouapplication```
+- For OU/SU to process the complains, the user has to enter ```localhost:3000/processcomplain```
+- For OU to accept the invitation, the user has to enter ```localhost:3000/accordenyinv```
+- For user to search for the files, the user has to enter ```localhost:3000/searchfiles```
+- For user to search about other OU's information, the user has to enter ```localhost:3000/SearchOU```
+- For user to send document invitation, the user has to enter ```localhost:3000/docInvitation```
